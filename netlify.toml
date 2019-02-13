@@ -1,0 +1,4 @@
+[build]
+  base="oer-bookr/"
+  publish="oer-bookr/build"
+  command="yarn build"
