@@ -1,5 +1,5 @@
 import React from "react"
-import Login from "../components/login/Login"
+import Login from "../components/Login/Login"
 
 const Authenticate = WrappedComponent => {
   // Authenticate is taking in a component as an arg.
