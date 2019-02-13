@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import Authenticate from "./hoc/Authenticate"
 
 class App extends Component {
   render() {
@@ -11,4 +12,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default Authenticate(App)
