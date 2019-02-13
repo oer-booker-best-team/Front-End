@@ -5,9 +5,9 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
-  NavLink
+  NavItem
 } from "reactstrap"
+import { NavLink } from "react-router-dom"
 
 import { NavWrapper } from "../../styles/navigationStyles"
 
@@ -26,13 +26,13 @@ class Navigation extends React.Component {
   render() {
     return (
       <NavWrapper>
-        <Navbar color="dark" dark expand="md" fixed-top>
+        <Navbar fixed="top" color="dark" dark expand="md">
           <NavbarBrand href="/">
             <img
               src="https://www.clipartmax.com/png/small/0-3414_clipart-pile-of-books-cartoon-free-download-clip-art-cartoon-pile-of.png"
               width="33"
               height="33"
-              class="d-inline-block align-top"
+              className="d-inline-block align-top"
               alt=""
             />
             OER-Bookr
@@ -41,12 +41,12 @@ class Navigation extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/" active>
+                <NavLink to="/" exact>
                   Home
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#">Logout</NavLink>
+                <NavLink to="#">Logout</NavLink>
               </NavItem>
             </Nav>
           </Collapse>

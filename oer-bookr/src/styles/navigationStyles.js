@@ -8,4 +8,14 @@ export const NavWrapper = styled.div`
   img {
     margin-right: 10px;
   }
+
+  a {
+    margin: 0 10px;
+    color: white;
+  }
+  .active {
+    background-color: white;
+    color: black;
+    padding: 5px;
+  }
 `
