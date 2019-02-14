@@ -4,7 +4,7 @@ import Category from "../components/category/Category"
 import { Container, Header, App } from "../styles/basicStyles"
 import { CategoriesWrapper } from "../styles/categoryStyles"
 
-import categories from "../dummy-data"
+import { categories } from "../dummy-data"
 
 class CategoryList extends Component {
   constructor(props) {
@@ -22,7 +22,6 @@ class CategoryList extends Component {
   }
 
   fetchBooks = category => {
-    console.log(this.props)
     this.props.history.push(`/category/${category}`)
   }
 
