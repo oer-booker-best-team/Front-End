@@ -1,14 +1,26 @@
 import React from "react"
 
 import { ReviewWrapper } from "../../styles/reviewStyles"
+import { Icon } from "../../styles/basicStyles"
 
-const Review = props => {
+const Review = ({ review, deleteReview }) => {
+  const currentUser = localStorage.getItem("currentUser")
+  let canDelete = false
+  if (currentUser === review.reviewer) canDelete = true
   return (
     <ReviewWrapper>
       <div>
-        <strong>{props.rev.reviewer}</strong>
+        <p>
+          <strong>{review.reviewer}</strong>
+        </p>
+        <p>{review.text}</p>
       </div>
-      <div>{props.rev.review}</div>
+      <Icon show={canDelete}>
+        <i
+          className="fas fa-minus-circle"
+          onClick={() => deleteReview(review.id)}
+        />
+      </Icon>
     </ReviewWrapper>
   )
 }

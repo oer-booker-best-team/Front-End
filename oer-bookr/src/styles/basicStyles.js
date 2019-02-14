@@ -25,3 +25,7 @@ export const App = styled.span`
   font-weight: bold;
   font-size: 45px;
 `
+
+export const Icon = styled.div`
+  ${props => (!props.show ? `display: none;` : `display: block;`)}
+`

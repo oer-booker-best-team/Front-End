@@ -21,19 +21,19 @@ class BookDescription extends Component {
         {
           id: 0,
           reviewer: "Anonymous",
-          review:
+          text:
             "Students follow specific procedures to complete much of the work. Using this as an assessment may yield faulty information."
         },
         {
           id: 1,
           reviewer: "L.J",
-          review:
+          text:
             "Worksheets and support tell student the procedure to complete the work."
         }
       ],
       modal: false,
       reviewer: "",
-      review: ""
+      text: ""
     }
   }
 
@@ -47,7 +47,7 @@ class BookDescription extends Component {
   }
 
   setReview = event => {
-    this.setState({ review: event.target.value })
+    this.setState({ text: event.target.value })
   }
 
   toggle = () => {
@@ -61,19 +61,25 @@ class BookDescription extends Component {
     this.toggle()
     const newReview = {
       reviewer: this.state.reviewer.slice(),
-      review: this.state.review.slice()
+      text: this.state.text.slice(),
+      id: new Date()
     }
-    // make a put request to add the review
+    // make a put request to add the review - update book with new reviews array
     const reviews = [...this.state.reviews]
     reviews.push(newReview)
-    this.setState({ reviews: reviews, review: "" })
+    this.setState({ reviews: reviews, text: "" })
+  }
+
+  deleteHandler = id => {
+    const reviews = this.state.reviews.filter(review => review.id !== id)
+    this.setState({ reviews: reviews })
   }
 
   render() {
     const capitalize = str => str[0].toUpperCase() + str.slice(1)
     const sections = ["category", "author", "publisher", "license"]
     const makeSectionDiv = section => (
-      <div>
+      <div key={section}>
         <span>{capitalize(section)}:</span> {this.state[section]}
       </div>
     )
@@ -83,10 +89,10 @@ class BookDescription extends Component {
           <h1>
             {this.state.title} - id: {this.props.match.params.id}
           </h1>
-          <p>
+          <div>
             <h2>Description: </h2>
-            {this.state.description}
-          </p>
+            <p>{this.state.description}</p>
+          </div>
           <div>
             <div>{sections.map(makeSectionDiv)}</div>
             <Button color="secondary" onClick={this.toggle}>
@@ -96,8 +102,8 @@ class BookDescription extends Component {
           <hr />
           <h3>Reviews:</h3>
           <ReviewsWrapper>
-            {this.state.reviews.map(review => (
-              <Review rev={review} key={review.id} />
+            {this.state.reviews.map(r => (
+              <Review review={r} key={r.id} deleteReview={this.deleteHandler} />
             ))}
           </ReviewsWrapper>
         </DescriptionWrapper>
@@ -117,10 +123,10 @@ class BookDescription extends Component {
                 <textarea
                   rows="4"
                   cols="25"
-                  name="review"
+                  name="text"
                   placeholder="Leave your comment"
                   onChange={this.setReview}
-                  value={this.state.review}
+                  value={this.state.text}
                 />
               </div>
               <Button type="submit" color="primary">
