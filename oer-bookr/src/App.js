@@ -5,6 +5,7 @@ import { Route } from "react-router-dom"
 import Navigation from "./components/navigation/Navigation"
 import CategoryList from "./containers/CategoryList"
 import BooksList from "./containers/BooksList"
+import BookDescription from "./containers/BookDescription"
 
 class App extends Component {
   render() {
@@ -12,9 +13,8 @@ class App extends Component {
       <div className="App">
         <Navigation />
         <Route path="/category/:id" component={BooksList} />
+        <Route path="/book/:id" component={BookDescription} />
         <Route exact path="/" component={CategoryList} />
-        {/* Books list for a category path='/category' */}
-        {/* Book description route  path='/category/id'*/}
         {/* Add review route/modal */}
       </div>
     )
