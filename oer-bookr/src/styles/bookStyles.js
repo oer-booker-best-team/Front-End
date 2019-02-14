@@ -14,7 +14,6 @@ export const BooksWrapper = styled.div`
 export const BookWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  /* border-bottom: 1px solid black; */
   padding-bottom: 10px;
   margin-top: 20px;
   padding: 10px;
@@ -42,5 +41,17 @@ export const BookInfo = styled.div`
     :hover {
       color: #d2e6cc;
     }
+  }
+`
+
+export const DescriptionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: 100px auto;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
   }
 `

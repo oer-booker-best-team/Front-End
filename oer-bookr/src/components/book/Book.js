@@ -39,6 +39,13 @@ const Book = props => {
       image = ""
       break
   }
+  const capitalize = str => str[0].toUpperCase() + str.slice(1)
+  const sections = ["author", "publisher", "license", "reviews"]
+  const makeSectionDiv = section => (
+    <div>
+      <span>{capitalize(section)}:</span> {props.book[section]}
+    </div>
+  )
   return (
     <BookWrapper>
       <img src={image} alt="Book" />
@@ -47,18 +54,7 @@ const Book = props => {
           <span>Title:</span>
           <Link to={`/book/${props.book.id}`}> {props.book.title}</Link>
         </div>
-        <div>
-          <span>Author:</span> {props.book.author}
-        </div>
-        <div>
-          <span>Publisher:</span> {props.book.publisher}
-        </div>
-        <div>
-          <span>License:</span> {props.book.license}
-        </div>
-        <div>
-          <span>Reviews:</span> {props.book.reviews}
-        </div>
+        {sections.map(makeSectionDiv)}
       </BookInfo>
     </BookWrapper>
   )
