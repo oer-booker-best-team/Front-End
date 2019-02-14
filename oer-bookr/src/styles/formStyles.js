@@ -24,6 +24,7 @@ export const InputBox = styled.input`
 export const Button = styled.button`
   font-size: 1.4rem;
   padding: 5px 10px;
+  margin-top: 10px;
   border-radius: 5px;
   :focus {
     outline: none;
@@ -32,5 +33,10 @@ export const Button = styled.button`
   ${props =>
     props.color === "primary"
       ? `background-color: #007bff; border-color: #007bff; color: #fff;`
-      : null}
+      : props.color === "secondary" &&
+        `background-color: #08a581; border-color: #08a581; color: #fff;`}
 `
+
+// export const InputArea = styled.textarea`
+
+// `
