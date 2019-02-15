@@ -8,6 +8,7 @@ export const Form = styled.form`
 export const InputLabel = styled.label`
   font-size: 1.4rem;
   font-weight: bold;
+  color: #fff;
 `
 
 export const InputBox = styled.input`
@@ -19,6 +20,9 @@ export const InputBox = styled.input`
   }
   border-radius: 5px;
   margin-bottom: 10px;
+  border: none;
+  border-bottom: 1px solid white;
+  font-size: 14px;
 `
 
 export const Button = styled.button`
@@ -31,12 +35,18 @@ export const Button = styled.button`
     outline: none;
   }
   border-radius: 5px;
-  ${props =>
-    props.color === "primary"
-      ? `background-color: #007bff; border-color: #007bff; color: #fff;`
-      : props.color === "secondary"
+  ${({ color }) =>
+    color === "primary"
+      ? `background-color: #fff; 
+         color: #045d75; 
+         :hover {
+          background-color: #045d75;
+          color: white;
+         }
+        `
+      : color === "secondary"
       ? `background-color: #08a581; border-color: #08a581; color: #fff;`
-      : props.color === "danger" &&
+      : color === "danger" &&
         `background-color: #d30606; border-color: #d30606; color: #fff;`}
 `
 

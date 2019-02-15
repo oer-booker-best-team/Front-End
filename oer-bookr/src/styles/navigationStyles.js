@@ -7,6 +7,8 @@ export const NavWrapper = styled.div`
 
   img {
     margin-right: 10px;
+    width: 33px;
+    height: 33px;
   }
 
   a {
@@ -14,8 +16,7 @@ export const NavWrapper = styled.div`
     color: white;
   }
   .active {
-    background-color: white;
-    color: black;
     padding: 5px;
+    border-bottom: 3px solid #045d75;
   }
 `
