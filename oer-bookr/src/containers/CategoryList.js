@@ -19,6 +19,25 @@ class CategoryList extends Component {
     this.setState({
       categories: categories
     })
+
+    //Get the list of categories from server
+    // const endpoint = `${process.env.REACT_APP_URL}/books`
+    // const token = localStorage.getItem('jwt');
+    // const requestOptions = {
+    //   headers: {
+    //     authorization: token
+    //   }
+    // }
+    // axios
+    //   .get(endpoint, requestOptions)
+    //   .then(res => {
+    //     const categories = res.data.map(book => book.category)
+    //     categories = categories.filter((elem, pos, arr) => {
+    //       return arr.indexOf(elem) == pos
+    //     })
+    //   })
+    //   .catch(err => console.log("Error fetching books!", err))
+    //   this.setState({categories: categories});
   }
 
   fetchBooks = category => {
