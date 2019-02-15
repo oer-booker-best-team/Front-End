@@ -33,7 +33,9 @@ class BookDescription extends Component {
       ],
       modal: false,
       reviewer: "",
-      text: ""
+      text: "",
+      warning: false,
+      reviewId: ""
     }
   }
 
@@ -52,7 +54,17 @@ class BookDescription extends Component {
 
   toggle = () => {
     this.setState({
-      modal: !this.state.modal
+      modal: !this.state.modal,
+      text: ""
+    })
+  }
+
+  toggleWarning = id => {
+    this.setState(prevState => {
+      return {
+        warning: !prevState.warning,
+        reviewId: id
+      }
     })
   }
 
@@ -70,8 +82,12 @@ class BookDescription extends Component {
     this.setState({ reviews: reviews, text: "" })
   }
 
-  deleteHandler = id => {
-    const reviews = this.state.reviews.filter(review => review.id !== id)
+  deleteHandler = event => {
+    event.preventDefault()
+    this.toggleWarning()
+    const reviews = this.state.reviews.filter(
+      review => review.id !== this.state.reviewId
+    )
     this.setState({ reviews: reviews })
   }
 
@@ -103,7 +119,7 @@ class BookDescription extends Component {
           <h3>Reviews:</h3>
           <ReviewsWrapper>
             {this.state.reviews.map(r => (
-              <Review review={r} key={r.id} deleteReview={this.deleteHandler} />
+              <Review review={r} key={r.id} toggle={this.toggleWarning} />
             ))}
           </ReviewsWrapper>
         </DescriptionWrapper>
@@ -139,6 +155,27 @@ class BookDescription extends Component {
               Cancel
             </Button>
           </ModalFooter>
+        </Modal>
+
+        <Modal
+          isOpen={this.state.warning}
+          toggle={this.toggleWarning}
+          className={this.props.className}
+        >
+          <ModalBody>
+            <Form onSubmit={this.deleteHandler}>
+              <Button type="submit" color="danger">
+                Delete
+              </Button>
+              <Button
+                type="button"
+                color="secondary"
+                onClick={this.toggleWarning}
+              >
+                Cancel
+              </Button>
+            </Form>
+          </ModalBody>
         </Modal>
       </div>
     )

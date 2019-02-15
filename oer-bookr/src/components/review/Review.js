@@ -3,7 +3,7 @@ import React from "react"
 import { ReviewWrapper } from "../../styles/reviewStyles"
 import { Icon } from "../../styles/basicStyles"
 
-const Review = ({ review, deleteReview }) => {
+const Review = ({ review, toggle }) => {
   const currentUser = localStorage.getItem("currentUser")
   let canDelete = false
   if (currentUser === review.reviewer) canDelete = true
@@ -16,10 +16,7 @@ const Review = ({ review, deleteReview }) => {
         <p>{review.text}</p>
       </div>
       <Icon show={canDelete}>
-        <i
-          className="fas fa-minus-circle"
-          onClick={() => deleteReview(review.id)}
-        />
+        <i className="fas fa-minus-circle" onClick={() => toggle(review.id)} />
       </Icon>
     </ReviewWrapper>
   )
