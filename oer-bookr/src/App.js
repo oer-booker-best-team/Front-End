@@ -15,7 +15,6 @@ class App extends Component {
         <Route path="/category/:id" component={BooksList} />
         <Route path="/book/:id" component={BookDescription} />
         <Route exact path="/" component={CategoryList} />
-        {/* Add review route/modal */}
       </div>
     )
   }
