@@ -39,3 +39,7 @@ export const Button = styled.button`
       : props.color === "danger" &&
         `background-color: #d30606; border-color: #d30606; color: #fff;`}
 `
+
+export const Logout = styled.div`
+  display: inline-block;
+`

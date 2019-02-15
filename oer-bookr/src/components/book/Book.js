@@ -42,7 +42,7 @@ const Book = props => {
   const capitalize = str => str[0].toUpperCase() + str.slice(1)
   const sections = ["author", "publisher", "license", "reviews"]
   const makeSectionDiv = section => (
-    <div>
+    <div key={section}>
       <span>{capitalize(section)}:</span> {props.book[section]}
     </div>
   )

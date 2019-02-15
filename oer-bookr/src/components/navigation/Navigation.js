@@ -10,6 +10,7 @@ import {
 import { NavLink } from "react-router-dom"
 
 import { NavWrapper } from "../../styles/navigationStyles"
+import { Logout } from "../../styles/formStyles"
 
 class Navigation extends React.Component {
   constructor(props) {
@@ -46,7 +47,13 @@ class Navigation extends React.Component {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="#">Logout</NavLink>
+                <a href="/">
+                  <Logout
+                    onClick={() => localStorage.removeItem("currentUser")}
+                  >
+                    Logout
+                  </Logout>
+                </a>
               </NavItem>
             </Nav>
           </Collapse>
