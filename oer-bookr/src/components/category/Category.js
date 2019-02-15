@@ -1,4 +1,5 @@
 import React from "react"
+import Flip from "react-reveal/Flip"
 
 import { CategoryWrapper } from "../../styles/categoryStyles"
 
@@ -40,8 +41,10 @@ const Category = props => {
   }
   return (
     <CategoryWrapper onClick={() => props.fetchBooks(props.category.name)}>
-      <img src={image} alt="Category" />
-      <p>{props.category.name}</p>
+      <Flip left>
+        <img src={image} alt="Category" />
+        <p>{props.category.name}</p>
+      </Flip>
     </CategoryWrapper>
   )
 }

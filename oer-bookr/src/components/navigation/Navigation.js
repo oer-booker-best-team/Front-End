@@ -11,6 +11,7 @@ import { NavLink } from "react-router-dom"
 
 import { NavWrapper } from "../../styles/navigationStyles"
 import { Logout } from "../../styles/formStyles"
+import logo from "../../assets/images/bookcase.jpg"
 
 class Navigation extends React.Component {
   constructor(props) {
@@ -29,13 +30,7 @@ class Navigation extends React.Component {
       <NavWrapper>
         <Navbar fixed="top" color="dark" dark expand="md">
           <NavbarBrand href="/">
-            <img
-              src="https://www.clipartmax.com/png/small/0-3414_clipart-pile-of-books-cartoon-free-download-clip-art-cartoon-pile-of.png"
-              width="33"
-              height="33"
-              className="d-inline-block align-top"
-              alt=""
-            />
+            <img src={logo} alt="logo" />
             OER-Bookr
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />

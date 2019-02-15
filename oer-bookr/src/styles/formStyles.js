@@ -3,11 +3,26 @@ import styled from "styled-components"
 export const Form = styled.form`
   padding: 20px;
   font-size: 2rem;
+
+  h3 {
+    color: #045d75;
+  }
+
+  input,
+  textarea {
+    color: #045d75;
+  }
+
+  textarea {
+    font-size: 20px;
+    width: 100%;
+  }
 `
 
 export const InputLabel = styled.label`
   font-size: 1.4rem;
   font-weight: bold;
+  color: #fff;
 `
 
 export const InputBox = styled.input`
@@ -19,6 +34,9 @@ export const InputBox = styled.input`
   }
   border-radius: 5px;
   margin-bottom: 10px;
+  border: none;
+  border-bottom: 1px solid white;
+  font-size: 14px;
 `
 
 export const Button = styled.button`
@@ -31,13 +49,31 @@ export const Button = styled.button`
     outline: none;
   }
   border-radius: 5px;
-  ${props =>
-    props.color === "primary"
-      ? `background-color: #007bff; border-color: #007bff; color: #fff;`
-      : props.color === "secondary"
-      ? `background-color: #08a581; border-color: #08a581; color: #fff;`
-      : props.color === "danger" &&
-        `background-color: #d30606; border-color: #d30606; color: #fff;`}
+  ${({ color }) =>
+    color === "primary"
+      ? `background-color: #fff; 
+         color: #045d75; 
+         :hover {
+          background-color: #045d75;
+          color: white;
+         }
+        `
+      : color === "secondary"
+      ? `background-color: #045d75; 
+         color: #fff; 
+         :hover {
+          background-color: #fff;
+          color: #045d75;
+         }
+        `
+      : color === "danger" &&
+        `background-color: #BC1102; 
+         color: #fff;
+         :hover {
+          background-color: #fff;
+          color: #BC1102;
+         }
+        `}
 `
 
 export const Logout = styled.div`

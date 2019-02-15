@@ -3,13 +3,14 @@ import styled from "styled-components"
 export const CategoriesWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 80%;
+  justify-content: center;
+  width: 100%;
   margin: 100px auto;
 `
 
 export const CategoryWrapper = styled.div`
   width: 30%;
-  height: 150px;
+  height: 200px;
   margin: 10px;
   position: relative;
   top: 0;
@@ -25,20 +26,17 @@ export const CategoryWrapper = styled.div`
   img {
     background-repeat: no-repeat;
     background-size: 100%;
-    filter: opacity(50%);
     width: 100%;
     height: 100%;
-
-    :hover {
-      filter: opacity(80%);
-    }
   }
 
   p {
     position: absolute;
-    top: 25px;
-    left: 10%;
-    font-size: 22px;
-    font-weight: bold;
+    top: 5px;
+    left: 3%;
+    font-size: 25px;
+    font-weight: 700;
+    color: #bc1102;
+    width: 70%;
   }
 `

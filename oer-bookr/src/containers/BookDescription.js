@@ -1,10 +1,12 @@
 import React, { Component } from "react"
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap"
+import Zoom from "react-reveal/Zoom"
 
 import { DescriptionWrapper } from "../styles/bookStyles"
 import { ReviewsWrapper } from "../styles/reviewStyles"
 import { Button, Form } from "../styles/formStyles"
 import Review from "../components/review/Review"
+import BackgroundImage from "../components/BackgroundImage"
 
 class BookDescription extends Component {
   constructor(props) {
@@ -101,34 +103,30 @@ class BookDescription extends Component {
     )
     return (
       <div>
-        <DescriptionWrapper>
-          <h1>
-            {this.state.title} - id: {this.props.match.params.id}
-          </h1>
-          <div>
-            <h2>Description: </h2>
-            <p>{this.state.description}</p>
-          </div>
-          <div>
-            <div>{sections.map(makeSectionDiv)}</div>
-            <Button color="secondary" onClick={this.toggle}>
-              Add Review
-            </Button>
-          </div>
-          <hr />
-          <h3>Reviews:</h3>
-          <ReviewsWrapper>
-            {this.state.reviews.map(r => (
-              <Review review={r} key={r.id} toggle={this.toggleWarning} />
-            ))}
-          </ReviewsWrapper>
-        </DescriptionWrapper>
-
-        <Modal
-          isOpen={this.state.modal}
-          toggle={this.toggle}
-          className={this.props.className}
-        >
+        <BackgroundImage />
+        <Zoom>
+          <DescriptionWrapper>
+            <h1>{this.state.title}</h1>
+            <div>
+              <h2>Description: </h2>
+              <p>{this.state.description}</p>
+            </div>
+            <div>
+              <div>{sections.map(makeSectionDiv)}</div>
+              <Button color="primary" onClick={this.toggle}>
+                Add Review
+              </Button>
+            </div>
+            <hr />
+            <h3>Reviews:</h3>
+            <ReviewsWrapper>
+              {this.state.reviews.map(r => (
+                <Review review={r} key={r.id} toggle={this.toggleWarning} />
+              ))}
+            </ReviewsWrapper>
+          </DescriptionWrapper>
+        </Zoom>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} centered>
           <ModalHeader toggle={this.toggle}>Add Review</ModalHeader>
           <ModalBody>
             <Form onSubmit={this.action}>
@@ -145,8 +143,8 @@ class BookDescription extends Component {
                   value={this.state.text}
                 />
               </div>
-              <Button type="submit" color="primary">
-                Add Comment
+              <Button type="submit" color="secondary">
+                Add Review
               </Button>
             </Form>
           </ModalBody>
@@ -160,7 +158,8 @@ class BookDescription extends Component {
         <Modal
           isOpen={this.state.warning}
           toggle={this.toggleWarning}
-          className={this.props.className}
+          centered
+          size="sm"
         >
           <ModalBody>
             <Form onSubmit={this.deleteHandler}>
