@@ -2,7 +2,9 @@ import React, { Component } from "react"
 
 import { books } from "../dummy-data"
 import Book from "../components/book/Book"
+import { Header } from "../styles/basicStyles"
 import { BooksWrapper } from "../styles/bookStyles"
+import BackgroundImage from "../components/BackgroundImage"
 
 class BooksList extends Component {
   constructor(props) {
@@ -21,12 +23,17 @@ class BooksList extends Component {
 
   render() {
     return (
-      <BooksWrapper>
-        <h1>Category: {this.props.match.params.id}</h1>
-        {this.state.books.map(book => (
-          <Book key={book.id} book={book} />
-        ))}
-      </BooksWrapper>
+      <>
+        <BackgroundImage />
+        <Header>
+          <h1>{this.props.match.params.id}</h1>
+        </Header>{" "}
+        <BooksWrapper>
+          {this.state.books.map(book => (
+            <Book key={book.id} book={book} />
+          ))}
+        </BooksWrapper>
+      </>
     )
   }
 }

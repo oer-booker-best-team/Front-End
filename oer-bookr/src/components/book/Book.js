@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import Zoom from "react-reveal/Zoom"
 
 import { BookWrapper, BookInfo } from "../../styles/bookStyles"
 
@@ -48,7 +49,9 @@ const Book = props => {
   )
   return (
     <BookWrapper>
-      <img src={image} alt="Book" />
+      <Zoom>
+        <img src={image} alt="Book" />
+      </Zoom>
       <BookInfo>
         <div>
           <span>Title:</span>

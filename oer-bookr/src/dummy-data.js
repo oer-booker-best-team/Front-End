@@ -32,6 +32,16 @@ export const books = [
   },
   {
     category: "Mathematics",
+    title: "Bunny Addition",
+    author: "Becky Smith",
+    publisher:
+      "University of North Carolina at Chapel Hill School of Education",
+    license: "",
+    reviews: [],
+    id: 1
+  },
+  {
+    category: "Mathematics",
     title: "Draw a Math Story: From the Concrete to the Symbolic",
     author: "",
     publisher: "ReadWriteThink",
