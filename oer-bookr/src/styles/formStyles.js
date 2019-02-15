@@ -3,6 +3,20 @@ import styled from "styled-components"
 export const Form = styled.form`
   padding: 20px;
   font-size: 2rem;
+
+  h3 {
+    color: #045d75;
+  }
+
+  input,
+  textarea {
+    color: #045d75;
+  }
+
+  textarea {
+    font-size: 20px;
+    width: 100%;
+  }
 `
 
 export const InputLabel = styled.label`
@@ -45,9 +59,21 @@ export const Button = styled.button`
          }
         `
       : color === "secondary"
-      ? `background-color: #08a581; border-color: #08a581; color: #fff;`
+      ? `background-color: #045d75; 
+         color: #fff; 
+         :hover {
+          background-color: #fff;
+          color: #045d75;
+         }
+        `
       : color === "danger" &&
-        `background-color: #d30606; border-color: #d30606; color: #fff;`}
+        `background-color: #BC1102; 
+         color: #fff;
+         :hover {
+          background-color: #fff;
+          color: #BC1102;
+         }
+        `}
 `
 
 export const Logout = styled.div`

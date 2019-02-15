@@ -41,7 +41,7 @@ const Book = props => {
       break
   }
   const capitalize = str => str[0].toUpperCase() + str.slice(1)
-  const sections = ["author", "publisher", "license", "reviews"]
+  const sections = ["author", "publisher", "license"]
   const makeSectionDiv = section => (
     <div key={section}>
       <span>{capitalize(section)}:</span> {props.book[section]}
@@ -58,6 +58,9 @@ const Book = props => {
           <Link to={`/book/${props.book.id}`}> {props.book.title}</Link>
         </div>
         {sections.map(makeSectionDiv)}
+        <div>
+          <span>Reviews:</span> {props.book.reviews.length}
+        </div>
       </BookInfo>
     </BookWrapper>
   )
