@@ -39,7 +39,7 @@ class Login extends React.Component {
           <h1>Login</h1>
           <div>
             <InputLabel htmlFor="username">
-              <i class="far fa-user" /> Username
+              <i className="far fa-user" /> Username
             </InputLabel>
             <InputBox
               name="username"
@@ -51,7 +51,7 @@ class Login extends React.Component {
           </div>
           <div>
             <InputLabel htmlFor="password">
-              <i class="fas fa-unlock-alt" /> Password
+              <i className="fas fa-unlock-alt" /> Password
             </InputLabel>
             <InputBox
               name="password"

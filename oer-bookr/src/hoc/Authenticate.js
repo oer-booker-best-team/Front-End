@@ -20,7 +20,7 @@ const Authenticate = WrappedComponent => {
     }
 
     render() {
-      if (this.state.loggedIn) return <WrappedComponent />
+      if (this.state.loggedIn) return <WrappedComponent {...this.props} />
       else return <Login />
     }
   }

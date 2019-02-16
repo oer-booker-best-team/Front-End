@@ -1,9 +1,9 @@
 import React from "react"
 
 import { ReviewWrapper } from "../../styles/reviewStyles"
-import { Icon } from "../../styles/basicStyles"
+import { Icon, IconGroup } from "../../styles/basicStyles"
 
-const Review = ({ review, toggle }) => {
+const Review = ({ review, toggle, toggleEdit }) => {
   const currentUser = localStorage.getItem("currentUser")
   let canDelete = false
   if (currentUser === review.reviewer) canDelete = true
@@ -15,9 +15,17 @@ const Review = ({ review, toggle }) => {
         </p>
         <p>{review.text}</p>
       </div>
-      <Icon show={canDelete}>
-        <i className="fas fa-minus-circle" onClick={() => toggle(review.id)} />
-      </Icon>
+      <IconGroup>
+        <Icon show={canDelete}>
+          <i
+            className="fas fa-minus-circle"
+            onClick={() => toggle(review.id)}
+          />
+        </Icon>
+        <Icon show={canDelete}>
+          <i className="far fa-edit" onClick={() => toggleEdit(review.id)} />
+        </Icon>
+      </IconGroup>
     </ReviewWrapper>
   )
 }
