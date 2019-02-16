@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 
-import Authenticate from "../hoc/Authenticate"
 import { books } from "../dummy-data"
 import Book from "../components/book/Book"
 import { Header } from "../styles/basicStyles"
@@ -39,4 +38,4 @@ class BooksList extends Component {
   }
 }
 
-export default Authenticate(BooksList)
+export default BooksList

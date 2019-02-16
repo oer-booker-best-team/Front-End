@@ -13,11 +13,11 @@ import mathematics from "../../assets/images/categories/mathematics.jpg"
 
 const Category = props => {
   let image = ""
-  switch (props.category.name) {
-    case "Ancient Civilizations":
+  switch (props.category) {
+    case "History":
       image = ancientCivilizations
       break
-    case "Mathematics":
+    case "Math":
       image = mathematics
       break
     case "Arts and Humanities":
@@ -26,13 +26,13 @@ const Category = props => {
     case "Education":
       image = education
       break
-    case "Engineering":
+    case "Science":
       image = engineering
       break
     case "Business and Communications":
       image = business
       break
-    case "Language":
+    case "English":
       image = language
       break
     default:
@@ -43,7 +43,7 @@ const Category = props => {
     <CategoryWrapper onClick={() => props.fetchBooks(props.category.name)}>
       <Flip left>
         <img src={image} alt="Category" />
-        <p>{props.category.name}</p>
+        <p>{props.category}</p>
       </Flip>
     </CategoryWrapper>
   )

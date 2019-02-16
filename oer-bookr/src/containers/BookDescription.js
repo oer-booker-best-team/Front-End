@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap"
 import Zoom from "react-reveal/Zoom"
 
-import Authenticate from "../hoc/Authenticate"
 import { DescriptionWrapper } from "../styles/bookStyles"
 import { ReviewsWrapper } from "../styles/reviewStyles"
 import { Button, Form } from "../styles/formStyles"
@@ -218,4 +217,4 @@ class BookDescription extends Component {
   }
 }
 
-export default Authenticate(BookDescription)
+export default BookDescription

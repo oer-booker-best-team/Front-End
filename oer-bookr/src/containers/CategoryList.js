@@ -1,10 +1,10 @@
 import React, { Component } from "react"
+import axios from "axios"
 
 import Category from "../components/category/Category"
 import { Container, Header } from "../styles/basicStyles"
 import { CategoriesWrapper } from "../styles/categoryStyles"
 import BackgroundImage from "../components/BackgroundImage"
-import { categories } from "../dummy-data"
 
 class CategoryList extends Component {
   constructor(props) {
@@ -15,33 +15,29 @@ class CategoryList extends Component {
   }
 
   componentDidMount = () => {
-    //Get the categories from sever when ready
-    this.setState({
-      categories: categories
-    })
-
     //Get the list of categories from server
-    // const endpoint = `${process.env.REACT_APP_URL}/books`
-    // const token = localStorage.getItem('jwt');
-    // const requestOptions = {
-    //   headers: {
-    //     authorization: token
-    //   }
-    // }
-    // axios
-    //   .get(endpoint, requestOptions)
-    //   .then(res => {
-    //     const categories = res.data.map(book => book.category)
-    //     categories = categories.filter((elem, pos, arr) => {
-    //       return arr.indexOf(elem) == pos
-    //     })
-    //   })
-    //   .catch(err => console.log("Error fetching books!", err))
-    //   this.setState({categories: categories});
+    const endpoint = "https://oer-bookr-api.herokuapp.com/books"
+    const token = localStorage.getItem("jwt")
+    const requestOptions = {
+      headers: {
+        authorization: token
+      }
+    }
+    if (!token) this.props.history.push("/login")
+    axios
+      .get(endpoint, requestOptions)
+      .then(res => {
+        let categories = res.data.map(book => book.subject)
+        categories = categories.filter(
+          (elem, pos, arr) => arr.indexOf(elem) === pos
+        )
+        this.setState({ categories: categories })
+      })
+      .catch(err => console.log("Error fetching books!", err))
   }
 
   fetchBooks = category => {
-    this.props.history.push(`/category/${category}`)
+    this.props.history.push(`/books/category/${category}`)
   }
 
   render() {
@@ -63,7 +59,7 @@ class CategoryList extends Component {
               <Category
                 fetchBooks={this.fetchBooks}
                 category={category}
-                key={category.name}
+                key={category}
               />
             ))}
           </CategoriesWrapper>
