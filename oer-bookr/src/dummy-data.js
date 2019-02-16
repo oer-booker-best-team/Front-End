@@ -1,4 +1,4 @@
-export const categories = [
+export const cat = [
   { name: "Mathematics" },
   { name: "Arts and Humanities" },
   { name: "Education" },
