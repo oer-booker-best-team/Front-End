@@ -76,12 +76,12 @@ class BookDescription extends Component {
   }
 
   toggleEdit = id => {
-    const review = this.state.reviews.filter(review => review.id === id)
+    const review = this.state.reviews.find(review => review.id === id)
     this.setState(prevState => {
       return {
         modal: !prevState.modal,
-        text: review[0].text,
-        reviewer: review[0].reviewer,
+        text: review.text,
+        reviewer: review.reviewer,
         actionType: "Edit",
         reviewId: id
       }
