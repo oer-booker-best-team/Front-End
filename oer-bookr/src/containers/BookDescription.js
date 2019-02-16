@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap"
 import Zoom from "react-reveal/Zoom"
 
+import Authenticate from "../hoc/Authenticate"
 import { DescriptionWrapper } from "../styles/bookStyles"
 import { ReviewsWrapper } from "../styles/reviewStyles"
 import { Button, Form } from "../styles/formStyles"
@@ -37,7 +38,8 @@ class BookDescription extends Component {
       reviewer: "",
       text: "",
       warning: false,
-      reviewId: ""
+      reviewId: "",
+      actionType: ""
     }
   }
 
@@ -55,9 +57,12 @@ class BookDescription extends Component {
   }
 
   toggle = () => {
-    this.setState({
-      modal: !this.state.modal,
-      text: ""
+    this.setState(prevState => {
+      return {
+        modal: !prevState.modal,
+        text: "",
+        actionType: "Add"
+      }
     })
   }
 
@@ -70,9 +75,27 @@ class BookDescription extends Component {
     })
   }
 
+  toggleEdit = id => {
+    const review = this.state.reviews.filter(review => review.id === id)
+    this.setState(prevState => {
+      return {
+        modal: !prevState.modal,
+        text: review[0].text,
+        reviewer: review[0].reviewer,
+        actionType: "Edit",
+        reviewId: id
+      }
+    })
+  }
+
   action = event => {
     event.preventDefault()
     this.toggle()
+    if (this.state.actionType === "Add") this.addHandler()
+    if (this.state.actionType === "Edit") this.editHandler()
+  }
+
+  addHandler = () => {
     const newReview = {
       reviewer: this.state.reviewer.slice(),
       text: this.state.text.slice(),
@@ -82,6 +105,13 @@ class BookDescription extends Component {
     const reviews = [...this.state.reviews]
     reviews.push(newReview)
     this.setState({ reviews: reviews, text: "" })
+  }
+
+  editHandler = () => {
+    const reviews = [...this.state.reviews]
+    const review = reviews.find(review => review.id === this.state.reviewId)
+    review.text = this.state.text
+    this.setState({ reviews: reviews })
   }
 
   deleteHandler = event => {
@@ -121,13 +151,20 @@ class BookDescription extends Component {
             <h3>Reviews:</h3>
             <ReviewsWrapper>
               {this.state.reviews.map(r => (
-                <Review review={r} key={r.id} toggle={this.toggleWarning} />
+                <Review
+                  review={r}
+                  key={r.id}
+                  toggle={this.toggleWarning}
+                  toggleEdit={this.toggleEdit}
+                />
               ))}
             </ReviewsWrapper>
           </DescriptionWrapper>
         </Zoom>
         <Modal isOpen={this.state.modal} toggle={this.toggle} centered>
-          <ModalHeader toggle={this.toggle}>Add Review</ModalHeader>
+          <ModalHeader toggle={this.toggle}>
+            {this.state.actionType} Review
+          </ModalHeader>
           <ModalBody>
             <Form onSubmit={this.action}>
               <div>
@@ -144,7 +181,7 @@ class BookDescription extends Component {
                 />
               </div>
               <Button type="submit" color="secondary">
-                Add Review
+                {this.state.actionType} Review
               </Button>
             </Form>
           </ModalBody>
@@ -181,4 +218,4 @@ class BookDescription extends Component {
   }
 }
 
-export default BookDescription
+export default Authenticate(BookDescription)

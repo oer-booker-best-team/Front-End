@@ -10,7 +10,7 @@ import BookDescription from "./containers/BookDescription"
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div>
         <Navigation />
         <Route path="/category/:id" component={BooksList} />
         <Route path="/book/:id" component={BookDescription} />

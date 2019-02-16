@@ -36,6 +36,12 @@ export const Header = styled.header`
   }
 `
 
+export const IconGroup = styled.div`
+  display: flex;
+  width: 20%;
+  justify-content: space-evenly;
+`
+
 export const Icon = styled.div`
   ${props => (!props.show ? `display: none;` : `display: block;`)}
 `
