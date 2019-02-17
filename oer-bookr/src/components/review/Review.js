@@ -13,7 +13,7 @@ const Review = ({ review, toggle, toggleEdit }) => {
         <p>
           <strong>{review.reviewer}</strong>
         </p>
-        <p>{review.text}</p>
+        <p>{review.review}</p>
       </div>
       <IconGroup>
         <Icon show={canDelete}>

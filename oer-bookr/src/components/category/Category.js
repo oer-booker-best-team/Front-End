@@ -40,7 +40,7 @@ const Category = props => {
       break
   }
   return (
-    <CategoryWrapper onClick={() => props.fetchBooks(props.category.name)}>
+    <CategoryWrapper onClick={() => props.fetchBooks(props.category)}>
       <Flip left>
         <img src={image} alt="Category" />
         <p>{props.category}</p>

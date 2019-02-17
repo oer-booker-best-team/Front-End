@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 
-import { books } from "../dummy-data"
 import Book from "../components/book/Book"
 import { Header } from "../styles/basicStyles"
 import { BooksWrapper } from "../styles/bookStyles"
@@ -15,8 +14,8 @@ class BooksList extends Component {
   }
 
   componentDidMount = () => {
-    const booksList = books.filter(
-      book => book.category === this.props.match.params.id
+    const booksList = this.props.books.filter(
+      book => book.subject === this.props.match.params.subject
     )
     this.setState({ books: booksList })
   }
