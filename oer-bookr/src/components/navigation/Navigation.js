@@ -37,7 +37,7 @@ class Navigation extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink to="/books" exact>
+                <NavLink to="/" exact>
                   Home
                 </NavLink>
               </NavItem>
@@ -54,7 +54,10 @@ class Navigation extends React.Component {
               <NavItem>
                 <a href="/">
                   <Logout
-                    onClick={() => localStorage.removeItem("currentUser")}
+                    onClick={() => {
+                      localStorage.removeItem("currentUser")
+                      localStorage.removeItem("jwt")
+                    }}
                   >
                     Logout
                   </Logout>
