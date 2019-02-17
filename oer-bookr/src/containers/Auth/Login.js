@@ -26,7 +26,7 @@ class SignIn extends React.Component {
       .then(res => {
         localStorage.setItem("jwt", res.data.token)
         localStorage.setItem("currentUser", this.state.username)
-        this.props.history.push("/books")
+        this.props.history.push("/")
       })
       .catch(err => {
         console.log(err)

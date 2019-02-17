@@ -32,7 +32,7 @@ class SignIn extends React.Component {
           .then(response => {
             console.log("response from login: ", response)
             localStorage.setItem("jwt", response.data.token)
-            this.props.history.push("/books")
+            this.props.history.push("/")
           })
           .catch(err => {
             console.log(err)
