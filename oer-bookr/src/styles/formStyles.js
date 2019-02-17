@@ -79,3 +79,20 @@ export const Button = styled.button`
 export const Logout = styled.div`
   display: inline-block;
 `
+
+export const Message = styled.div`
+  color: #bc1102;
+  text-align: center;
+  margin-top: 20px;
+`
+
+export const MessageLogin = styled(Message)`
+  background-color: #d7a481;
+  font-size: 18px;
+  a {
+    color: white;
+    :hover {
+      color: #045d75;
+    }
+  }
+`

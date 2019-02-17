@@ -40,7 +40,10 @@ const Category = props => {
       break
   }
   return (
-    <CategoryWrapper onClick={() => props.fetchBooks(props.category)}>
+    // <CategoryWrapper onClick={() => props.fetchBooks(props.category)}>
+    <CategoryWrapper
+      onClick={() => props.history.push(`/books/category/${props.category}`)}
+    >
       <Flip left>
         <img src={image} alt="Category" />
         <p>{props.category}</p>
