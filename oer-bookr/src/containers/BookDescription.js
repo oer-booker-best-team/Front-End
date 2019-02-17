@@ -26,7 +26,16 @@ class BookDescription extends Component {
   componentDidMount = () => {
     // fetch the book information and the reviews array
     const bookId = this.props.match.params.id
-    const bookInfoURL = `https://oer-bookr-api.herokuapp.com/books/${bookId}`
+    this.fetchBookInfo(bookId)
+
+    const reviewer = localStorage.getItem("currentUser")
+    if (reviewer) {
+      this.setState({ reviewer: reviewer })
+    }
+  }
+
+  fetchBookInfo = id => {
+    const bookInfoURL = `https://oer-bookr-api.herokuapp.com/books/${id}`
     const token = localStorage.getItem("jwt")
     const requestOptions = {
       headers: {
@@ -38,11 +47,6 @@ class BookDescription extends Component {
       .get(bookInfoURL, requestOptions)
       .then(res => this.setState({ book: res.data }))
       .catch(err => console.log(err))
-
-    const reviewer = localStorage.getItem("currentUser")
-    if (reviewer) {
-      this.setState({ reviewer: reviewer })
-    }
   }
 
   setReview = event => {
@@ -89,15 +93,27 @@ class BookDescription extends Component {
   }
 
   addHandler = () => {
-    const newReview = {
-      reviewer: this.state.reviewer.slice(),
-      text: this.state.text.slice(),
-      id: new Date()
+    const endpoint = "https://oer-bookr-api.herokuapp.com/reviews"
+    const token = localStorage.getItem("jwt")
+    const requestOptions = {
+      headers: {
+        authorization: token
+      }
     }
-    // make a put request to add the review - update book with new reviews array
-    const reviews = [...this.state.reviews]
-    reviews.push(newReview)
-    this.setState({ reviews: reviews, text: "" })
+    if (!token) this.props.history.push("/login")
+    const newReview = {
+      reviewer: this.state.reviewer,
+      review: this.state.text.slice(),
+      rating: 3,
+      book_id: this.state.book.id
+      // id: new Date()
+    }
+    axios
+      .post(endpoint, newReview, requestOptions)
+      .then(res => (newReview.id = res.data))
+      .catch(err => console.log(err))
+
+    this.fetchBookInfo(this.state.book.id)
   }
 
   editHandler = () => {
@@ -118,7 +134,7 @@ class BookDescription extends Component {
 
   render() {
     const capitalize = str => str[0].toUpperCase() + str.slice(1)
-    const sections = ["category", "author", "publisher", "license"]
+    const sections = ["subject", "author", "publisher", "license"]
     const makeSectionDiv = section => (
       <div key={section}>
         <span>{capitalize(section)}:</span> {this.state.book[section]}
@@ -130,10 +146,6 @@ class BookDescription extends Component {
         <Zoom>
           <DescriptionWrapper>
             <h1>{this.state.book.title}</h1>
-            <div>
-              <h2>Description: </h2>
-              <p>{this.state.book.description}</p>
-            </div>
             <div>
               <div>{sections.map(makeSectionDiv)}</div>
               <Button color="primary" onClick={this.toggle}>
