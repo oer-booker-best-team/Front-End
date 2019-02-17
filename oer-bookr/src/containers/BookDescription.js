@@ -15,8 +15,10 @@ class BookDescription extends Component {
     this.state = {
       book: {},
       modal: false,
+      currentReview: {},
       reviewer: "",
-      text: "",
+      // text: "",
+      // rating: 0,
       warning: false,
       reviewId: "",
       actionType: ""
@@ -26,7 +28,16 @@ class BookDescription extends Component {
   componentDidMount = () => {
     // fetch the book information and the reviews array
     const bookId = this.props.match.params.id
-    const bookInfoURL = `https://oer-bookr-api.herokuapp.com/books/${bookId}`
+    this.fetchBookInfo(bookId)
+
+    const reviewer = localStorage.getItem("currentUser")
+    if (reviewer) {
+      this.setState({ reviewer: reviewer })
+    }
+  }
+
+  fetchBookInfo = id => {
+    const bookInfoURL = `https://oer-bookr-api.herokuapp.com/books/${id}`
     const token = localStorage.getItem("jwt")
     const requestOptions = {
       headers: {
@@ -36,17 +47,18 @@ class BookDescription extends Component {
     if (!token) this.props.history.push("/login")
     axios
       .get(bookInfoURL, requestOptions)
-      .then(res => this.setState({ book: res.data }))
+      .then(res => {
+        this.setState({ book: res.data, currentReview: {}, reviewId: "" })
+      })
       .catch(err => console.log(err))
-
-    const reviewer = localStorage.getItem("currentUser")
-    if (reviewer) {
-      this.setState({ reviewer: reviewer })
-    }
   }
 
-  setReview = event => {
-    this.setState({ text: event.target.value })
+  setCurrentReview = event => {
+    const newReview = {
+      ...this.state.currentReview,
+      [event.target.name]: event.target.value
+    }
+    this.setState({ currentReview: newReview })
   }
 
   toggle = () => {
@@ -69,16 +81,27 @@ class BookDescription extends Component {
   }
 
   toggleEdit = id => {
-    const review = this.state.reviews.find(review => review.id === id)
-    this.setState(prevState => {
-      return {
-        modal: !prevState.modal,
-        text: review.text,
-        reviewer: review.reviewer,
-        actionType: "Edit",
-        reviewId: id
+    const endpoint = `https://oer-bookr-api.herokuapp.com/reviews/${id}`
+    const token = localStorage.getItem("jwt")
+    const requestOptions = {
+      headers: {
+        authorization: token
       }
-    })
+    }
+    if (!token) this.props.history.push("/login")
+    axios
+      .get(endpoint, requestOptions)
+      .then(res =>
+        this.setState(prevState => {
+          return {
+            modal: !prevState.modal,
+            currentReview: res.data,
+            actionType: "Edit"
+            // reviewId: id
+          }
+        })
+      )
+      .catch(err => console.log(err))
   }
 
   action = event => {
@@ -89,36 +112,80 @@ class BookDescription extends Component {
   }
 
   addHandler = () => {
-    const newReview = {
-      reviewer: this.state.reviewer.slice(),
-      text: this.state.text.slice(),
-      id: new Date()
+    const endpoint = "https://oer-bookr-api.herokuapp.com/reviews"
+    const token = localStorage.getItem("jwt")
+    const requestOptions = {
+      headers: {
+        authorization: token
+      }
     }
-    // make a put request to add the review - update book with new reviews array
-    const reviews = [...this.state.reviews]
-    reviews.push(newReview)
-    this.setState({ reviews: reviews, text: "" })
+    if (!token) this.props.history.push("/login")
+    const newReview = {
+      ...this.state.currentReview,
+      reviewer: this.state.reviewer,
+      rating: 5,
+      book_id: this.state.book.id
+    }
+    axios
+      .post(endpoint, newReview, requestOptions)
+      .then(res => (newReview.id = res.data))
+      .catch(err => console.log(err))
+
+    this.fetchBookInfo(this.state.book.id)
   }
 
   editHandler = () => {
-    const reviews = [...this.state.reviews]
-    const review = reviews.find(review => review.id === this.state.reviewId)
-    review.text = this.state.text
-    this.setState({ reviews: reviews })
+    // const reviews = [...this.state.reviews]
+    // const review = reviews.find(review => review.id === this.state.reviewId)
+    // review.text = this.state.text
+    // this.setState({ reviews: reviews })
+    const endpoint = `https://oer-bookr-api.herokuapp.com/reviews/${
+      this.state.currentReview.id
+    }`
+    const token = localStorage.getItem("jwt")
+    const requestOptions = {
+      headers: {
+        authorization: token
+      }
+    }
+    if (!token) this.props.history.push("/login")
+    const updatedReview = {
+      ...this.state.currentReview,
+      review: this.state.currentReview.review.slice(),
+      rating: this.state.currentReview.rating
+    }
+    axios
+      .put(endpoint, updatedReview, requestOptions)
+      .then(res => console.log("Response from edit: ", res))
+      .catch(err => console.log(err))
+
+    this.fetchBookInfo(this.state.book.id)
   }
 
   deleteHandler = event => {
     event.preventDefault()
     this.toggleWarning()
-    const reviews = this.state.reviews.filter(
-      review => review.id !== this.state.reviewId
-    )
-    this.setState({ reviews: reviews })
+    const endpoint = `https://oer-bookr-api.herokuapp.com/reviews/${
+      this.state.reviewId
+    }`
+    const token = localStorage.getItem("jwt")
+    const requestOptions = {
+      headers: {
+        authorization: token
+      }
+    }
+    if (!token) this.props.history.push("/login")
+    axios
+      .delete(endpoint, requestOptions)
+      .then(res => console.log("Response Delete: ", res))
+      .catch(err => console.log(err))
+
+    this.fetchBookInfo(this.state.book.id)
   }
 
   render() {
     const capitalize = str => str[0].toUpperCase() + str.slice(1)
-    const sections = ["category", "author", "publisher", "license"]
+    const sections = ["subject", "author", "publisher", "license"]
     const makeSectionDiv = section => (
       <div key={section}>
         <span>{capitalize(section)}:</span> {this.state.book[section]}
@@ -130,10 +197,6 @@ class BookDescription extends Component {
         <Zoom>
           <DescriptionWrapper>
             <h1>{this.state.book.title}</h1>
-            <div>
-              <h2>Description: </h2>
-              <p>{this.state.book.description}</p>
-            </div>
             <div>
               <div>{sections.map(makeSectionDiv)}</div>
               <Button color="primary" onClick={this.toggle}>
@@ -148,7 +211,7 @@ class BookDescription extends Component {
                     <Review
                       review={r}
                       key={r.id}
-                      toggle={this.toggleWarning}
+                      toggleWarning={this.toggleWarning}
                       toggleEdit={this.toggleEdit}
                     />
                   ))
@@ -169,10 +232,10 @@ class BookDescription extends Component {
                 <textarea
                   rows="4"
                   cols="25"
-                  name="text"
+                  name="review"
                   placeholder="Leave your comment"
-                  onChange={this.setReview}
-                  value={this.state.text}
+                  onChange={this.setCurrentReview}
+                  value={this.state.currentReview.review}
                 />
               </div>
               <Button type="submit" color="secondary">
