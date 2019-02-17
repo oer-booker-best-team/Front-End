@@ -50,7 +50,7 @@ class SignIn extends React.Component {
     return (
       <Rotate top left>
         <LoginForm onSubmit={this.SignInUser}>
-          <h1>Login</h1>
+          <h1>Sign In</h1>
           <div>
             <InputLabel htmlFor="username">
               <i className="far fa-user" /> Username
@@ -76,7 +76,7 @@ class SignIn extends React.Component {
             />
           </div>
           <Button type="submit" color="primary">
-            Login
+            Sign In
           </Button>
         </LoginForm>
       </Rotate>

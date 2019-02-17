@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap"
 import Zoom from "react-reveal/Zoom"
+import axios from "axios"
 
 import { DescriptionWrapper } from "../styles/bookStyles"
 import { ReviewsWrapper } from "../styles/reviewStyles"
@@ -12,27 +13,7 @@ class BookDescription extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      category: "Engineering",
-      title: "About Accuracy and Approximation",
-      author: "Ronald Poveda",
-      description:
-        "Students learn about the concepts of accuracy and approximation as they pertain to robotics, gain insight into experimental accuracy, and learn how and when to estimate values that they measure. Students also explore sources of error stemming from the robot setup and rounding numbers.",
-      publisher: "TeachEngineering",
-      license: "",
-      reviews: [
-        {
-          id: 0,
-          reviewer: "Anonymous",
-          text:
-            "Students follow specific procedures to complete much of the work. Using this as an assessment may yield faulty information."
-        },
-        {
-          id: 1,
-          reviewer: "L.J",
-          text:
-            "Worksheets and support tell student the procedure to complete the work."
-        }
-      ],
+      book: {},
       modal: false,
       reviewer: "",
       text: "",
@@ -44,6 +25,19 @@ class BookDescription extends Component {
 
   componentDidMount = () => {
     // fetch the book information and the reviews array
+    const bookId = this.props.match.params.id
+    const bookInfoURL = `https://oer-bookr-api.herokuapp.com/books/${bookId}`
+    const token = localStorage.getItem("jwt")
+    const requestOptions = {
+      headers: {
+        authorization: token
+      }
+    }
+    if (!token) this.props.history.push("/login")
+    axios
+      .get(bookInfoURL, requestOptions)
+      .then(res => this.setState({ book: res.data }))
+      .catch(err => console.log(err))
 
     const reviewer = localStorage.getItem("currentUser")
     if (reviewer) {
@@ -127,7 +121,7 @@ class BookDescription extends Component {
     const sections = ["category", "author", "publisher", "license"]
     const makeSectionDiv = section => (
       <div key={section}>
-        <span>{capitalize(section)}:</span> {this.state[section]}
+        <span>{capitalize(section)}:</span> {this.state.book[section]}
       </div>
     )
     return (
@@ -135,10 +129,10 @@ class BookDescription extends Component {
         <BackgroundImage />
         <Zoom>
           <DescriptionWrapper>
-            <h1>{this.state.title}</h1>
+            <h1>{this.state.book.title}</h1>
             <div>
               <h2>Description: </h2>
-              <p>{this.state.description}</p>
+              <p>{this.state.book.description}</p>
             </div>
             <div>
               <div>{sections.map(makeSectionDiv)}</div>
@@ -149,14 +143,16 @@ class BookDescription extends Component {
             <hr />
             <h3>Reviews:</h3>
             <ReviewsWrapper>
-              {this.state.reviews.map(r => (
-                <Review
-                  review={r}
-                  key={r.id}
-                  toggle={this.toggleWarning}
-                  toggleEdit={this.toggleEdit}
-                />
-              ))}
+              {this.state.book.reviews
+                ? this.state.book.reviews.map(r => (
+                    <Review
+                      review={r}
+                      key={r.id}
+                      toggle={this.toggleWarning}
+                      toggleEdit={this.toggleEdit}
+                    />
+                  ))
+                : null}
             </ReviewsWrapper>
           </DescriptionWrapper>
         </Zoom>

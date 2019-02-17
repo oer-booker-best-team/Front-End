@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import axios from "axios"
 
 import Category from "../components/category/Category"
 import { Container, Header } from "../styles/basicStyles"
@@ -15,25 +14,12 @@ class CategoryList extends Component {
   }
 
   componentDidMount = () => {
-    //Get the list of categories from server
-    const endpoint = "https://oer-bookr-api.herokuapp.com/books"
-    const token = localStorage.getItem("jwt")
-    const requestOptions = {
-      headers: {
-        authorization: token
-      }
-    }
-    if (!token) this.props.history.push("/login")
-    axios
-      .get(endpoint, requestOptions)
-      .then(res => {
-        let categories = res.data.map(book => book.subject)
-        categories = categories.filter(
-          (elem, pos, arr) => arr.indexOf(elem) === pos
-        )
-        this.setState({ categories: categories })
-      })
-      .catch(err => console.log("Error fetching books!", err))
+    //Get the list of categories from books array
+    let categories = this.props.books.map(book => book.subject)
+    categories = categories.filter(
+      (elem, pos, arr) => arr.indexOf(elem) === pos
+    )
+    this.setState({ categories: categories })
   }
 
   fetchBooks = category => {

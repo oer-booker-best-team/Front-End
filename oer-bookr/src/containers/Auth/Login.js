@@ -20,12 +20,12 @@ class SignIn extends React.Component {
 
   SignInUser = event => {
     event.preventDefault()
-    console.log(this.props)
     const loginURL = "https://oer-bookr-api.herokuapp.com/login"
     axios
       .post(loginURL, this.state)
       .then(res => {
         localStorage.setItem("jwt", res.data.token)
+        localStorage.setItem("currentUser", this.state.username)
         this.props.history.push("/books")
       })
       .catch(err => {
