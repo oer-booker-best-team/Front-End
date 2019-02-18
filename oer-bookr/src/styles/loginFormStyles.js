@@ -8,7 +8,12 @@ export const LoginForm = styled(Form)`
   margin: 50px auto;
   background-image: url(${Background});
   border-radius: 10px;
+  color: #fff;
 
+  input {
+    color: #fff;
+    font-size: 20px;
+  }
   h1 {
     text-align: center;
     color: white;

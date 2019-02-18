@@ -9,15 +9,17 @@ const BooksList = props => {
   const booksList = props.books.filter(
     book => book.subject === props.match.params.subject
   )
+  if (booksList.length === 0) props.history.push("/")
+
   return (
     <>
       <BackgroundImage />
       <Header>
-        <h1>{props.match.params.id}</h1>
-      </Header>{" "}
+        <h1>{props.match.params.subject}</h1>
+      </Header>
       <BooksWrapper>
         {booksList.map(book => (
-          <Book key={book.id} book={book} />
+          <Book key={book.id} book={book} deleteBook={props.deleteBook} />
         ))}
       </BooksWrapper>
     </>

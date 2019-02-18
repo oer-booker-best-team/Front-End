@@ -2,12 +2,14 @@ import React, { Component } from "react"
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap"
 import Zoom from "react-reveal/Zoom"
 import axios from "axios"
+import { Link } from "react-router-dom"
 
 import { DescriptionWrapper } from "../styles/bookStyles"
 import { ReviewsWrapper } from "../styles/reviewStyles"
 import { Button, Form } from "../styles/formStyles"
 import Review from "../components/review/Review"
 import BackgroundImage from "../components/BackgroundImage"
+import { Icon, IconGroup } from "../styles/basicStyles"
 
 class BookDescription extends Component {
   constructor(props) {
@@ -17,11 +19,10 @@ class BookDescription extends Component {
       modal: false,
       currentReview: {},
       reviewer: "",
-      // text: "",
-      // rating: 0,
       warning: false,
       reviewId: "",
-      actionType: ""
+      actionType: "",
+      warningType: ""
     }
   }
 
@@ -45,12 +46,14 @@ class BookDescription extends Component {
       }
     }
     if (!token) this.props.history.push("/login")
-    axios
-      .get(bookInfoURL, requestOptions)
-      .then(res => {
-        this.setState({ book: res.data, currentReview: {}, reviewId: "" })
-      })
-      .catch(err => console.log(err))
+    else {
+      axios
+        .get(bookInfoURL, requestOptions)
+        .then(res => {
+          this.setState({ book: res.data, currentReview: {}, reviewId: "" })
+        })
+        .catch(err => console.log(err))
+    }
   }
 
   setCurrentReview = event => {
@@ -71,11 +74,12 @@ class BookDescription extends Component {
     })
   }
 
-  toggleWarning = id => {
+  toggleWarning = (type, id) => {
     this.setState(prevState => {
       return {
         warning: !prevState.warning,
-        reviewId: id
+        reviewId: id,
+        warningType: type
       }
     })
   }
@@ -97,7 +101,6 @@ class BookDescription extends Component {
             modal: !prevState.modal,
             currentReview: res.data,
             actionType: "Edit"
-            // reviewId: id
           }
         })
       )
@@ -135,10 +138,6 @@ class BookDescription extends Component {
   }
 
   editHandler = () => {
-    // const reviews = [...this.state.reviews]
-    // const review = reviews.find(review => review.id === this.state.reviewId)
-    // review.text = this.state.text
-    // this.setState({ reviews: reviews })
     const endpoint = `https://oer-bookr-api.herokuapp.com/reviews/${
       this.state.currentReview.id
     }`
@@ -165,22 +164,27 @@ class BookDescription extends Component {
   deleteHandler = event => {
     event.preventDefault()
     this.toggleWarning()
-    const endpoint = `https://oer-bookr-api.herokuapp.com/reviews/${
-      this.state.reviewId
-    }`
-    const token = localStorage.getItem("jwt")
-    const requestOptions = {
-      headers: {
-        authorization: token
+    if (this.props.warningType === "review") {
+      const endpoint = `https://oer-bookr-api.herokuapp.com/reviews/${
+        this.state.reviewId
+      }`
+      const token = localStorage.getItem("jwt")
+      const requestOptions = {
+        headers: {
+          authorization: token
+        }
       }
-    }
-    if (!token) this.props.history.push("/login")
-    axios
-      .delete(endpoint, requestOptions)
-      .then(res => console.log("Response Delete: ", res))
-      .catch(err => console.log(err))
+      if (!token) this.props.history.push("/login")
+      axios
+        .delete(endpoint, requestOptions)
+        .then(res => console.log("Response Delete: ", res))
+        .catch(err => console.log(err))
 
-    this.fetchBookInfo(this.state.book.id)
+      this.fetchBookInfo(this.state.book.id)
+    } else if (this.state.warningType === "book") {
+      this.props.deleteBook(this.state.book.id)
+      this.props.history.push(`/books/category/${this.state.book.subject}`)
+    }
   }
 
   render() {
@@ -196,6 +200,19 @@ class BookDescription extends Component {
         <BackgroundImage />
         <Zoom>
           <DescriptionWrapper>
+            <IconGroup>
+              <Icon show>
+                <i
+                  className="fas fa-minus-circle"
+                  onClick={() => this.toggleWarning("book")}
+                />
+              </Icon>
+              <Icon show>
+                <Link to={`/books/update/${this.state.book.id}`}>
+                  <i className="far fa-edit" />
+                </Link>
+              </Icon>
+            </IconGroup>
             <h1>{this.state.book.title}</h1>
             <div>
               <div>{sections.map(makeSectionDiv)}</div>

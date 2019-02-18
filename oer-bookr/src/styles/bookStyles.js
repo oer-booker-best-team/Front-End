@@ -27,6 +27,11 @@ export const BookWrapper = styled.div`
     background-size: 100%;
     background-repeat: no-repeat;
   }
+
+  i {
+    color: #730200;
+    font-size: 18px;
+  }
 `
 
 export const BookInfo = styled.div`
@@ -68,12 +73,17 @@ export const DescriptionWrapper = styled.div`
   h1,
   h2,
   h3,
-  span {
+  span,
+  i {
     color: #045d75;
   }
 
   hr {
     width: 80%;
     margin: 20px auto;
+  }
+
+  i {
+    font-size: 22px;
   }
 `
