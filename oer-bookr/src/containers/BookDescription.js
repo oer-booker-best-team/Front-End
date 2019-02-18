@@ -163,8 +163,7 @@ class BookDescription extends Component {
 
   deleteHandler = event => {
     event.preventDefault()
-    this.toggleWarning()
-    if (this.props.warningType === "review") {
+    if (this.state.warningType === "review") {
       const endpoint = `https://oer-bookr-api.herokuapp.com/reviews/${
         this.state.reviewId
       }`
@@ -185,6 +184,7 @@ class BookDescription extends Component {
       this.props.deleteBook(this.state.book.id)
       this.props.history.push(`/books/category/${this.state.book.subject}`)
     }
+    this.toggleWarning()
   }
 
   render() {

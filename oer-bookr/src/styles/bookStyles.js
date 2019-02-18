@@ -85,5 +85,6 @@ export const DescriptionWrapper = styled.div`
 
   i {
     font-size: 22px;
+    margin-bottom: 30px;
   }
 `
