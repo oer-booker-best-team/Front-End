@@ -7,7 +7,7 @@ export const AddForm = styled(Form)`
   flex-direction: column;
   max-width: 1200px;
   margin: 50px auto;
-  background-color: rgba(164, 104, 67, 0.7);
+  background-color: #d7a481;
   border-radius: 10px;
   position: relative;
   top: 0;
@@ -34,12 +34,6 @@ export const AddForm = styled(Form)`
   }
   button {
     width: 20%;
-    background: transparent;
-    border: none;
-    border-bottom: 4px solid #045d75;
-    color: #fff;
-    border-radius: 60px;
-    font-weight: 700;
   }
   label {
     color: #fff;
@@ -60,7 +54,7 @@ export const Subject = styled.div`
   width: 40%;
   select {
     width: 70%;
-    color: #fff;
+    color: #045d75;
     font-size: 25px;
     font-weight: 700;
     background-color: transparent;

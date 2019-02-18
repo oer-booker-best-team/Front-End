@@ -17,7 +17,7 @@ const BooksList = props => {
       </Header>{" "}
       <BooksWrapper>
         {booksList.map(book => (
-          <Book key={book.id} book={book} />
+          <Book key={book.id} book={book} deleteBook={props.deleteBook} />
         ))}
       </BooksWrapper>
     </>

@@ -37,6 +37,25 @@ class Books extends Component {
     }
   }
 
+  deleteHandler = id => {
+    const endpoint = `https://oer-bookr-api.herokuapp.com/books/${id}`
+    const token = localStorage.getItem("jwt")
+    const requestOptions = {
+      headers: {
+        authorization: token
+      }
+    }
+    if (!token) this.props.history.push("/login")
+    else {
+      axios
+        .delete(endpoint, requestOptions)
+        .then(res => {
+          this.updateBooks()
+        })
+        .catch(err => console.log("Error fetching books!", err))
+    }
+  }
+
   render() {
     return (
       <div>
@@ -45,7 +64,11 @@ class Books extends Component {
           <Route
             path="/books/category/:subject"
             render={props => (
-              <BooksList {...props} books={this.state.booksList} />
+              <BooksList
+                {...props}
+                books={this.state.booksList}
+                deleteBook={this.deleteHandler}
+              />
             )}
           />
           <Route
