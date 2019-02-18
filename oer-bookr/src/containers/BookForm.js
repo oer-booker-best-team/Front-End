@@ -45,6 +45,17 @@ class BookForm extends Component {
             this.setState({ bookInfo: currentInfo })
           })
           .catch(err => console.log(err))
+      } else {
+        const reset = {
+          title: "",
+          author: "",
+          publisher: "",
+          license: "",
+          subject: "",
+          image: bookImage,
+          link: ""
+        }
+        this.setState({ bookInfo: reset })
       }
     }
   }
@@ -73,7 +84,9 @@ class BookForm extends Component {
           .post(bookInfoURL, this.state.bookInfo, requestOptions)
           .then(res => {
             this.props.update()
-            this.props.history.goBack()
+            this.props.history.push(
+              `/books/category/${this.state.bookInfo.subject}`
+            )
           })
           .catch(err => console.log(err))
       } else if (this.props.type === "Update") {
@@ -153,7 +166,12 @@ class BookForm extends Component {
                 type="text"
                 placeholder="Image"
                 onChange={this.saveInput}
-                value={this.state.bookInfo.image}
+                value={
+                  this.state.bookInfo.image ===
+                  "/static/media/bookcase.008fbbb5.jpg"
+                    ? ""
+                    : this.state.bookInfo.image
+                }
               />
               <InputBox
                 name="link"

@@ -19,7 +19,7 @@ const Review = ({ review, toggleWarning, toggleEdit }) => {
         <Icon show={canDelete}>
           <i
             className="fas fa-minus-circle"
-            onClick={() => toggleWarning(review.id)}
+            onClick={() => toggleWarning("review", review.id)}
           />
         </Icon>
         <Icon show={canDelete}>
