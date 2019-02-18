@@ -23,6 +23,32 @@ class BookForm extends Component {
     }
   }
 
+  componentDidMount = () => {
+    const token = localStorage.getItem("jwt")
+    const requestOptions = {
+      headers: {
+        authorization: token
+      }
+    }
+    if (!token) this.props.history.push("/login")
+    else {
+      if (this.props.type === "Update") {
+        const getBookInfoUrl = `https://oer-bookr-api.herokuapp.com/books/${
+          this.props.match.params.id
+        }`
+        axios
+          .get(getBookInfoUrl, requestOptions)
+          .then(res => {
+            const currentInfo = { ...res.data }
+            delete currentInfo.id
+            delete currentInfo.reviews
+            this.setState({ bookInfo: currentInfo })
+          })
+          .catch(err => console.log(err))
+      }
+    }
+  }
+
   saveInput = event => {
     const newInfo = {
       ...this.state.bookInfo,
@@ -33,7 +59,6 @@ class BookForm extends Component {
 
   action = event => {
     event.preventDefault()
-    const bookInfoURL = `https://oer-bookr-api.herokuapp.com/books`
     const token = localStorage.getItem("jwt")
     const requestOptions = {
       headers: {
@@ -42,15 +67,27 @@ class BookForm extends Component {
     }
     if (!token) this.props.history.push("/login")
     else {
-      axios
-        .post(bookInfoURL, this.state.bookInfo, requestOptions)
-        .then(res => {
-          this.props.update()
-          this.props.history.push(
-            `/books/category/${this.state.bookInfo.subject}`
-          )
-        })
-        .catch(err => console.log(err))
+      if (this.props.type === "Add") {
+        const bookInfoURL = `https://oer-bookr-api.herokuapp.com/books`
+        axios
+          .post(bookInfoURL, this.state.bookInfo, requestOptions)
+          .then(res => {
+            this.props.update()
+            this.props.history.goBack()
+          })
+          .catch(err => console.log(err))
+      } else if (this.props.type === "Update") {
+        const getBookInfoUrl = `https://oer-bookr-api.herokuapp.com/books/${
+          this.props.match.params.id
+        }`
+        axios
+          .put(getBookInfoUrl, this.state.bookInfo, requestOptions)
+          .then(res => {
+            this.props.update()
+            this.props.history.goBack()
+          })
+          .catch(err => console.log(err))
+      }
     }
   }
 
@@ -60,39 +97,44 @@ class BookForm extends Component {
         <BackgroundImage />
         <Zoom>
           <AddForm onSubmit={this.action}>
-            <h1>Add A Book</h1>
+            <h1>{this.props.type} A Book</h1>
             <BookInfo>
               <InputBox
                 name="title"
                 type="text"
-                placeholder="Title"
+                placeholder="Title *"
                 onChange={this.saveInput}
-                value={this.state.title}
+                value={this.state.bookInfo.title}
               />
               <InputBox
                 name="author"
                 type="text"
-                placeholder="Author"
+                placeholder="Author *"
                 onChange={this.saveInput}
-                value={this.state.author}
+                value={this.state.bookInfo.author}
               />
               <InputBox
                 name="publisher"
                 type="text"
-                placeholder="Publisher"
+                placeholder="Publisher *"
                 onChange={this.saveInput}
-                value={this.state.publisher}
+                value={this.state.bookInfo.publisher}
               />
               <InputBox
                 name="license"
                 type="text"
-                placeholder="License"
+                placeholder="License *"
                 onChange={this.saveInput}
-                value={this.state.license}
+                value={this.state.bookInfo.license}
               />
             </BookInfo>
             <Subject>
-              <select name="subject" required onChange={this.saveInput}>
+              <select
+                name="subject"
+                required
+                onChange={this.saveInput}
+                value={this.state.bookInfo.subject}
+              >
                 <option value="" disabled selected>
                   Subject
                 </option>
@@ -111,18 +153,18 @@ class BookForm extends Component {
                 type="text"
                 placeholder="Image"
                 onChange={this.saveInput}
-                value={this.state.image}
+                value={this.state.bookInfo.image}
               />
               <InputBox
                 name="link"
                 type="text"
                 placeholder="Link"
                 onChange={this.saveInput}
-                value={this.state.link}
+                value={this.state.bookInfo.link}
               />
             </Links>
             <Button color="primary" type="submit">
-              Add Book
+              {this.props.type} Book
             </Button>
           </AddForm>
         </Zoom>

@@ -12,7 +12,7 @@ class Book extends React.Component {
     modal: false
   }
 
-  toggle = () => {
+  toggleWarning = () => {
     this.setState(prevState => {
       return {
         modal: !prevState.modal
@@ -38,7 +38,6 @@ class Book extends React.Component {
             <div>
               <span>Title:</span>
               <Link to={`/books/${this.props.book.id}`}>
-                {" "}
                 {this.props.book.title}
               </Link>
             </div>
@@ -46,21 +45,19 @@ class Book extends React.Component {
           </BookInfo>
           <IconGroup>
             <Icon show>
-              <i
-                className="fas fa-minus-circle"
-                // onClick={() => props.deleteBook(props.book.id)}
-                onClick={this.toggle}
-              />
+              <i className="fas fa-minus-circle" onClick={this.toggleWarning} />
             </Icon>
             <Icon show>
-              <i className="far fa-edit" />
+              <Link to={`/books/update/${this.props.book.id}`}>
+                <i className="far fa-edit" />
+              </Link>
             </Icon>
           </IconGroup>
         </BookWrapper>
 
         <Modal
           isOpen={this.state.modal}
-          toggle={this.toggle}
+          toggle={this.toggleWarning}
           centered
           size="sm"
         >

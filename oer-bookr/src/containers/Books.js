@@ -75,7 +75,14 @@ class Books extends Component {
             exact
             path="/books/add"
             render={props => (
-              <BookForm {...props} type="add" update={this.updateBooks} />
+              <BookForm {...props} type="Add" update={this.updateBooks} />
+            )}
+          />
+          <Route
+            exact
+            path="/books/update/:id"
+            render={props => (
+              <BookForm {...props} type="Update" update={this.updateBooks} />
             )}
           />
           <Route path="/books/:id" component={BookDescription} />
