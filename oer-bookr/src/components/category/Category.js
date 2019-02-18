@@ -20,7 +20,7 @@ const Category = props => {
     case "Math":
       image = mathematics
       break
-    case "Arts and Humanities":
+    case "Arts":
       image = arts
       break
     case "Education":
@@ -29,7 +29,7 @@ const Category = props => {
     case "Science":
       image = engineering
       break
-    case "Business and Communications":
+    case "Business":
       image = business
       break
     case "English":

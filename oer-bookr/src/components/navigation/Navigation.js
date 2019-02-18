@@ -42,6 +42,11 @@ class Navigation extends React.Component {
                 </NavLink>
               </NavItem>
               <NavItem>
+                <NavLink to="/books/add" exact>
+                  Add
+                </NavLink>
+              </NavItem>
+              <NavItem>
                 <NavLink to="/signIn" exact>
                   Sign In
                 </NavLink>

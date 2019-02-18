@@ -45,12 +45,14 @@ class BookDescription extends Component {
       }
     }
     if (!token) this.props.history.push("/login")
-    axios
-      .get(bookInfoURL, requestOptions)
-      .then(res => {
-        this.setState({ book: res.data, currentReview: {}, reviewId: "" })
-      })
-      .catch(err => console.log(err))
+    else {
+      axios
+        .get(bookInfoURL, requestOptions)
+        .then(res => {
+          this.setState({ book: res.data, currentReview: {}, reviewId: "" })
+        })
+        .catch(err => console.log(err))
+    }
   }
 
   setCurrentReview = event => {
@@ -135,10 +137,6 @@ class BookDescription extends Component {
   }
 
   editHandler = () => {
-    // const reviews = [...this.state.reviews]
-    // const review = reviews.find(review => review.id === this.state.reviewId)
-    // review.text = this.state.text
-    // this.setState({ reviews: reviews })
     const endpoint = `https://oer-bookr-api.herokuapp.com/reviews/${
       this.state.currentReview.id
     }`

@@ -34,9 +34,13 @@ export const InputBox = styled.input`
   }
   border-radius: 5px;
   margin-bottom: 10px;
-  border: none;
-  border-bottom: 1px solid white;
+  border: 4px solid white;
+  border-top: none;
+  background-color: transparent;
   font-size: 14px;
+  ::placeholder {
+    color: #fff;
+  }
 `
 
 export const Button = styled.button`
