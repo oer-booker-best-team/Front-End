@@ -50,7 +50,13 @@ class BookDescription extends Component {
       axios
         .get(bookInfoURL, requestOptions)
         .then(res => {
-          this.setState({ book: res.data, currentReview: {}, reviewId: "" })
+          this.setState({
+            book: res.data,
+            currentReview: {},
+            reviewId: "",
+            actionType: "",
+            warningType: ""
+          })
         })
         .catch(err => console.log(err))
     }
@@ -131,10 +137,11 @@ class BookDescription extends Component {
     }
     axios
       .post(endpoint, newReview, requestOptions)
-      .then(res => (newReview.id = res.data))
+      .then(res => {
+        newReview.id = res.data
+        this.fetchBookInfo(this.state.book.id)
+      })
       .catch(err => console.log(err))
-
-    this.fetchBookInfo(this.state.book.id)
   }
 
   editHandler = () => {
@@ -155,10 +162,8 @@ class BookDescription extends Component {
     }
     axios
       .put(endpoint, updatedReview, requestOptions)
-      .then(res => console.log("Response from edit: ", res))
+      .then(res => this.fetchBookInfo(this.state.book.id))
       .catch(err => console.log(err))
-
-    this.fetchBookInfo(this.state.book.id)
   }
 
   deleteHandler = event => {
@@ -176,15 +181,15 @@ class BookDescription extends Component {
       if (!token) this.props.history.push("/login")
       axios
         .delete(endpoint, requestOptions)
-        .then(res => console.log("Response Delete: ", res))
+        .then(res => {
+          this.fetchBookInfo(this.state.book.id)
+          this.toggleWarning()
+        })
         .catch(err => console.log(err))
-
-      this.fetchBookInfo(this.state.book.id)
     } else if (this.state.warningType === "book") {
       this.props.deleteBook(this.state.book.id)
       this.props.history.push(`/books/category/${this.state.book.subject}`)
     }
-    this.toggleWarning()
   }
 
   render() {
