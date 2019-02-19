@@ -59,3 +59,8 @@ export const Image = styled.img`
 
   opacity: 0.2;
 `
+
+export const Loading = styled.div`
+  width: 100%;
+  text-align: center;
+`

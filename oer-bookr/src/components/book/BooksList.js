@@ -6,9 +6,11 @@ import { BooksWrapper } from "../../styles/bookStyles"
 import BackgroundImage from "../BackgroundImage"
 
 const BooksList = props => {
-  const booksList = props.books.filter(
+  let booksList = props.books.filter(
     book => book.subject === props.match.params.subject
   )
+  if (props.match.params.subject === "All Subjects")
+    booksList = [...props.books]
   if (booksList.length === 0) props.history.push("/")
 
   return (

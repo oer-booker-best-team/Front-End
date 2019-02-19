@@ -1,9 +1,11 @@
 import React from "react"
 import Rotate from "react-reveal/Rotate"
 import axios from "axios"
+import { ClipLoader } from "react-spinners"
 
 import { InputLabel, InputBox, Button, Message } from "../../styles/formStyles"
 import { LoginForm } from "../../styles/loginFormStyles"
+import { Loading } from "../../styles/basicStyles"
 
 class SignIn extends React.Component {
   constructor() {
@@ -13,7 +15,8 @@ class SignIn extends React.Component {
         username: "",
         password: ""
       },
-      error: ""
+      error: "",
+      loading: false
     }
   }
 
@@ -26,8 +29,8 @@ class SignIn extends React.Component {
   SignInUser = event => {
     event.preventDefault()
 
-    const signInURL = "https://oer-bookr-api.herokuapp.com/register"
-    const loginURL = "https://oer-bookr-api.herokuapp.com/login"
+    const signInURL = "https://open-source-edu-books.herokuapp.com/register"
+    const loginURL = "https://open-source-edu-books.herokuapp.com/login"
     axios
       .post(signInURL, this.state.userData)
       .then(res => {
@@ -63,6 +66,13 @@ class SignIn extends React.Component {
             <h2>{this.state.error}</h2>
           </Message>
         ) : null}
+        <Loading>
+          <ClipLoader
+            size={150}
+            color={"#BC1102"}
+            loading={this.state.loading}
+          />
+        </Loading>
         <Rotate top left>
           <LoginForm onSubmit={this.SignInUser}>
             <h1>Sign In</h1>

@@ -12,7 +12,7 @@ export const LoginForm = styled(Form)`
 
   input {
     color: #fff;
-    font-size: 20px;
+    font-size: 25px;
   }
   h1 {
     text-align: center;

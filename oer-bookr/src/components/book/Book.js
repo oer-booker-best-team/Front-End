@@ -22,7 +22,7 @@ class Book extends React.Component {
 
   render() {
     const capitalize = str => str[0].toUpperCase() + str.slice(1)
-    const sections = ["author", "publisher", "license"]
+    const sections = ["subject", "author", "publisher", "license"]
     const makeSectionDiv = section => (
       <div key={section}>
         <span>{capitalize(section)}:</span> {this.props.book[section]}
@@ -71,7 +71,11 @@ class Book extends React.Component {
               <Button type="submit" color="danger">
                 Delete
               </Button>
-              <Button type="button" color="secondary" onClick={this.toggle}>
+              <Button
+                type="button"
+                color="secondary"
+                onClick={this.toggleWarning}
+              >
                 Cancel
               </Button>
             </Form>

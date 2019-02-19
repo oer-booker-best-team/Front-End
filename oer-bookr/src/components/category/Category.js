@@ -10,6 +10,7 @@ import education from "../../assets/images/categories/education.jpg"
 import engineering from "../../assets/images/categories/engineering.jpg"
 import language from "../../assets/images/categories/language.jpg"
 import mathematics from "../../assets/images/categories/mathematics.jpg"
+import all from "../../assets/images/categories/all.jpg"
 
 const Category = props => {
   let image = ""
@@ -34,6 +35,9 @@ const Category = props => {
       break
     case "English":
       image = language
+      break
+    case "All Subjects":
+      image = all
       break
     default:
       image = ""
