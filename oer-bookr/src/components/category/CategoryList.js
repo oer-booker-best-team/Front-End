@@ -25,6 +25,7 @@ const CategoryList = props => {
           {categories.map(category => (
             <Category {...props} category={category} key={category} />
           ))}
+          <Category {...props} category={"All Subjects"} />
         </CategoriesWrapper>
       </Container>
     </>
