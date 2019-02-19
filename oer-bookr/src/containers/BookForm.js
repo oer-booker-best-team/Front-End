@@ -78,70 +78,13 @@ class BookForm extends Component {
     this.setState({ bookInfo: newInfo })
   }
 
-  action = event => {
+  submitHandler = event => {
     event.preventDefault()
-    const token = localStorage.getItem("jwt")
-    const requestOptions = {
-      headers: {
-        authorization: token
-      }
-    }
-    if (!token) this.props.history.push("/login")
-    else {
-      if (this.props.type === "Add") {
-        const bookInfoURL = `https://open-source-edu-books.herokuapp.com/books`
-        if (
-          !this.state.bookInfo.title ||
-          !this.state.bookInfo.author ||
-          !this.state.bookInfo.publisher ||
-          !this.state.bookInfo.license
-        )
-          this.setState({ error: "Please fill all the required fields" })
-        this.setState({ loading: true })
-        axios
-          .post(bookInfoURL, this.state.bookInfo, requestOptions)
-          .then(res => {
-            this.setState({ error: "", loading: false })
-            this.props.update()
-            this.props.history.push(
-              `/books/category/${this.state.bookInfo.subject}`
-            )
-          })
-          .catch(err =>
-            this.setState({
-              error: "Error adding book! -- " + this.state.error,
-              loading: false
-            })
-          )
-      } else if (this.props.type === "Update") {
-        const getBookInfoUrl = `https://open-source-edu-books.herokuapp.com/books/${
-          this.props.match.params.id
-        }`
-        if (
-          !this.state.bookInfo.title ||
-          !this.state.bookInfo.author ||
-          !this.state.bookInfo.publisher ||
-          !this.state.bookInfo.license
-        )
-          this.setState({ error: "Please fill all the required fields" })
-        else {
-          this.setState({ loading: true })
-          axios
-            .put(getBookInfoUrl, this.state.bookInfo, requestOptions)
-            .then(res => {
-              this.setState({ error: "", loading: false })
-              this.props.update()
-              this.props.history.goBack()
-            })
-            .catch(err =>
-              this.setState({
-                error: "Error updating book! -- " + this.state.error,
-                loading: false
-              })
-            )
-        }
-      }
-    }
+    this.props.action(
+      this.state.bookInfo,
+      this.props.type,
+      this.props.match.params.id
+    )
   }
 
   render() {
@@ -161,7 +104,7 @@ class BookForm extends Component {
           />
         </Loading>
         <Zoom>
-          <AddForm onSubmit={this.action}>
+          <AddForm onSubmit={this.submitHandler}>
             <h1>{this.props.type} A Book</h1>
             <BookInfo>
               <InputBox
@@ -233,9 +176,7 @@ class BookForm extends Component {
                 value={this.state.bookInfo.link}
               />
             </Links>
-            <Button color="primary" type="submit">
-              {this.props.type} Book
-            </Button>
+            <Button color="primary">{this.props.type} Book</Button>
           </AddForm>
         </Zoom>
       </div>
