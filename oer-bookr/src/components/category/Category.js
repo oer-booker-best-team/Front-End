@@ -1,5 +1,6 @@
 import React from "react"
 import Flip from "react-reveal/Flip"
+import PropTypes from "prop-types"
 
 import { CategoryWrapper } from "../../styles/categoryStyles"
 
@@ -57,3 +58,7 @@ const Category = props => {
 }
 
 export default Category
+
+Category.propTypes = {
+  category: PropTypes.string
+}
