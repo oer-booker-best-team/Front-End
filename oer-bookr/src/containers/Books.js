@@ -33,7 +33,7 @@ class Books extends Component {
     }
     if (!token) this.props.history.push("/login")
     else {
-      this.setState({ loading: true })
+      this.setState({ error: "", loading: true })
       axios
         .get(endpoint, requestOptions)
         .then(res => {
@@ -55,7 +55,7 @@ class Books extends Component {
     }
     if (!token) this.props.history.push("/login")
     else {
-      this.setState({ loading: true })
+      this.setState({ error: "", loading: true })
       axios
         .delete(endpoint, requestOptions)
         .then(res => {
@@ -79,55 +79,40 @@ class Books extends Component {
     else {
       if (type === "Add") {
         const bookInfoURL = `https://open-source-edu-books.herokuapp.com/books`
-        if (
-          !bookInfo.title ||
-          !bookInfo.author ||
-          !bookInfo.publisher ||
-          !bookInfo.license
-        )
-          this.setState({ error: "Please fill all the required fields" })
-        else {
-          this.setState({ loading: true })
-          axios
-            .post(bookInfoURL, bookInfo, requestOptions)
-            .then(res => {
-              this.setState({ error: "", loading: false })
-              this.props.history.push(`/books/category/${bookInfo.subject}`)
+
+        this.setState({ error: "", loading: true })
+        axios
+          .post(bookInfoURL, bookInfo, requestOptions)
+          .then(res => {
+            this.setState({ error: "", loading: false })
+            this.updateBooks()
+            this.props.history.push(`/books/category/${bookInfo.subject}`)
+          })
+          .catch(err => {
+            this.setState({
+              error: "Error adding book! -- " + this.state.error,
+              loading: false
             })
-            .catch(err => {
-              this.setState({
-                error: "Error adding book! -- " + this.state.error,
-                loading: false
-              })
-            })
-        }
+          })
       } else if (type === "Update") {
         const getBookInfoUrl = `https://open-source-edu-books.herokuapp.com/books/${id}`
-        if (
-          !bookInfo.title ||
-          !bookInfo.author ||
-          !bookInfo.publisher ||
-          !bookInfo.license
-        )
-          this.setState({ error: "Please fill all the required fields" })
-        else {
-          this.setState({ loading: true })
-          axios
-            .put(getBookInfoUrl, bookInfo, requestOptions)
-            .then(res => {
-              this.setState({ error: "", loading: false })
-              this.props.history.goBack()
+
+        this.setState({ error: "", loading: true })
+        axios
+          .put(getBookInfoUrl, bookInfo, requestOptions)
+          .then(res => {
+            this.setState({ error: "", loading: false })
+            this.updateBooks()
+            this.props.history.goBack()
+          })
+          .catch(err =>
+            this.setState({
+              error: "Error updating book! -- " + this.state.error,
+              loading: false
             })
-            .catch(err =>
-              this.setState({
-                error: "Error updating book! -- " + this.state.error,
-                loading: false
-              })
-            )
-        }
+          )
       }
     }
-    this.updateBooks()
   }
 
   render() {

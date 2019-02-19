@@ -113,6 +113,7 @@ class BookForm extends Component {
                 placeholder="Title *"
                 onChange={this.saveInput}
                 value={this.state.bookInfo.title}
+                required
               />
               <InputBox
                 name="author"
@@ -120,6 +121,7 @@ class BookForm extends Component {
                 placeholder="Author *"
                 onChange={this.saveInput}
                 value={this.state.bookInfo.author}
+                required
               />
               <InputBox
                 name="publisher"
@@ -127,6 +129,7 @@ class BookForm extends Component {
                 placeholder="Publisher *"
                 onChange={this.saveInput}
                 value={this.state.bookInfo.publisher}
+                required
               />
               <InputBox
                 name="license"
@@ -134,6 +137,7 @@ class BookForm extends Component {
                 placeholder="License *"
                 onChange={this.saveInput}
                 value={this.state.bookInfo.license}
+                required
               />
             </BookInfo>
             <Subject>

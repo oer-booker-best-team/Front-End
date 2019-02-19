@@ -5,7 +5,7 @@ import axios from "axios"
 import { Link } from "react-router-dom"
 import { ClipLoader } from "react-spinners"
 
-import { DescriptionWrapper } from "../styles/bookStyles"
+import { DescriptionWrapper, BookHeader } from "../styles/bookStyles"
 import { ReviewsWrapper } from "../styles/reviewStyles"
 import { Button, Form, Message } from "../styles/formStyles"
 import Review from "../components/review/Review"
@@ -257,9 +257,18 @@ class BookDescription extends Component {
                 </Link>
               </Icon>
             </IconGroup>
-            <h1>{this.state.book.title}</h1>
+            <BookHeader>
+              <h1>{this.state.book.title}</h1>
+              <img src={this.state.book.image} />
+            </BookHeader>
             <div>
               <div>{sections.map(makeSectionDiv)}</div>
+              <div>
+                <span>Link:</span>{" "}
+                <a href="{this.state.book.link}" target="_blank" rel="noopener">
+                  {this.state.book.link}
+                </a>
+              </div>
               <Button color="primary" onClick={this.toggle}>
                 Add Review
               </Button>

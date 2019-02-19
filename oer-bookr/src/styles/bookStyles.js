@@ -87,4 +87,18 @@ export const DescriptionWrapper = styled.div`
     font-size: 22px;
     margin-bottom: 30px;
   }
+
+  a {
+    color: #730200;
+  }
+`
+
+export const BookHeader = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  img {
+    width: 20%;
+    height: 200px;
+  }
 `
