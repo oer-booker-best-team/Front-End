@@ -90,6 +90,13 @@ class BookForm extends Component {
     else {
       if (this.props.type === "Add") {
         const bookInfoURL = `https://open-source-edu-books.herokuapp.com/books`
+        if (
+          !this.state.bookInfo.title ||
+          !this.state.bookInfo.author ||
+          !this.state.bookInfo.publisher ||
+          !this.state.bookInfo.license
+        )
+          this.setState({ error: "Please fill all the required fields" })
         this.setState({ loading: true })
         axios
           .post(bookInfoURL, this.state.bookInfo, requestOptions)
@@ -101,23 +108,38 @@ class BookForm extends Component {
             )
           })
           .catch(err =>
-            this.setState({ error: "Error adding book!", loading: false })
+            this.setState({
+              error: "Error adding book! -- " + this.state.error,
+              loading: false
+            })
           )
       } else if (this.props.type === "Update") {
         const getBookInfoUrl = `https://open-source-edu-books.herokuapp.com/books/${
           this.props.match.params.id
         }`
-        this.setState({ loading: true })
-        axios
-          .put(getBookInfoUrl, this.state.bookInfo, requestOptions)
-          .then(res => {
-            this.setState({ error: "", loading: false })
-            this.props.update()
-            this.props.history.goBack()
-          })
-          .catch(err =>
-            this.setState({ error: "Error updating book!", loading: false })
-          )
+        if (
+          !this.state.bookInfo.title ||
+          !this.state.bookInfo.author ||
+          !this.state.bookInfo.publisher ||
+          !this.state.bookInfo.license
+        )
+          this.setState({ error: "Please fill all the required fields" })
+        else {
+          this.setState({ loading: true })
+          axios
+            .put(getBookInfoUrl, this.state.bookInfo, requestOptions)
+            .then(res => {
+              this.setState({ error: "", loading: false })
+              this.props.update()
+              this.props.history.goBack()
+            })
+            .catch(err =>
+              this.setState({
+                error: "Error updating book! -- " + this.state.error,
+                loading: false
+              })
+            )
+        }
       }
     }
   }
