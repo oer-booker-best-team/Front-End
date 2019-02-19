@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 
 import Category from "./Category"
 import { Container, Header } from "../../styles/basicStyles"
@@ -33,3 +34,7 @@ const CategoryList = props => {
 }
 
 export default CategoryList
+
+CategoryList.propTypes = {
+  books: PropTypes.arrayOf(PropTypes.object)
+}

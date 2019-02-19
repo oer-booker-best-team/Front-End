@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import Zoom from "react-reveal/Zoom"
 import { Modal, ModalBody } from "reactstrap"
+import PropTypes from "prop-types"
 
 import { BookWrapper, BookInfo } from "../../styles/bookStyles"
 import { Icon, IconGroup } from "../../styles/basicStyles"
@@ -42,6 +43,12 @@ class Book extends React.Component {
               </Link>
             </div>
             {sections.map(makeSectionDiv)}
+            <div>
+              <span>Link:</span>
+              <a href={this.props.book.link} target="_blank">
+                {this.props.book.link}
+              </a>
+            </div>
           </BookInfo>
           <IconGroup>
             <Icon show>
@@ -87,3 +94,17 @@ class Book extends React.Component {
 }
 
 export default Book
+
+Book.propTypes = {
+  book: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    publisher: PropTypes.string.isRequired,
+    license: PropTypes.string.isRequired,
+    subject: PropTypes.string.isRequired,
+    image: PropTypes.string,
+    link: PropTypes.string,
+    deleteBook: PropTypes.func
+  })
+}

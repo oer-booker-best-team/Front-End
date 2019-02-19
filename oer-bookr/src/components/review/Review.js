@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 
 import { ReviewWrapper } from "../../styles/reviewStyles"
 import { Icon, IconGroup } from "../../styles/basicStyles"
@@ -31,3 +32,13 @@ const Review = ({ review, toggleWarning, toggleEdit }) => {
 }
 
 export default Review
+
+Review.propTypes = {
+  review: PropTypes.shape({
+    id: PropTypes.number,
+    book_id: PropTypes.number,
+    reviewer: PropTypes.string,
+    review: PropTypes.string,
+    rating: PropTypes.number
+  })
+}

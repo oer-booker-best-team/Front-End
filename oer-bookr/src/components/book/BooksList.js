@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 
 import Book from "./Book"
 import { Header } from "../../styles/basicStyles"
@@ -12,7 +13,6 @@ const BooksList = props => {
   if (props.match.params.subject === "All Subjects")
     booksList = [...props.books]
   if (booksList.length === 0) props.history.push("/")
-
   return (
     <>
       <BackgroundImage />
@@ -29,3 +29,8 @@ const BooksList = props => {
 }
 
 export default BooksList
+
+BooksList.propTypes = {
+  books: PropTypes.arrayOf(PropTypes.object),
+  deleteBook: PropTypes.func
+}
