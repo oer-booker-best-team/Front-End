@@ -3,13 +3,14 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap"
 import Zoom from "react-reveal/Zoom"
 import axios from "axios"
 import { Link } from "react-router-dom"
+import { ClipLoader } from "react-spinners"
 
 import { DescriptionWrapper } from "../styles/bookStyles"
 import { ReviewsWrapper } from "../styles/reviewStyles"
-import { Button, Form } from "../styles/formStyles"
+import { Button, Form, Message } from "../styles/formStyles"
 import Review from "../components/review/Review"
 import BackgroundImage from "../components/BackgroundImage"
-import { Icon, IconGroup } from "../styles/basicStyles"
+import { Icon, IconGroup, Loading } from "../styles/basicStyles"
 
 class BookDescription extends Component {
   constructor(props) {
@@ -22,7 +23,9 @@ class BookDescription extends Component {
       warning: false,
       reviewId: "",
       actionType: "",
-      warningType: ""
+      warningType: "",
+      error: "",
+      loading: false
     }
   }
 
@@ -47,6 +50,7 @@ class BookDescription extends Component {
     }
     if (!token) this.props.history.push("/login")
     else {
+      this.setState({ loading: true, error: "" })
       axios
         .get(bookInfoURL, requestOptions)
         .then(res => {
@@ -55,10 +59,14 @@ class BookDescription extends Component {
             currentReview: {},
             reviewId: "",
             actionType: "",
-            warningType: ""
+            warningType: "",
+            error: "",
+            loading: false
           })
         })
-        .catch(err => console.log(err))
+        .catch(
+          this.setState({ error: "Error fetching book info!", loading: false })
+        )
     }
   }
 
@@ -99,6 +107,7 @@ class BookDescription extends Component {
       }
     }
     if (!token) this.props.history.push("/login")
+    this.setState({ loading: true })
     axios
       .get(endpoint, requestOptions)
       .then(res =>
@@ -106,11 +115,15 @@ class BookDescription extends Component {
           return {
             modal: !prevState.modal,
             currentReview: res.data,
-            actionType: "Edit"
+            actionType: "Edit",
+            error: "",
+            loading: false
           }
         })
       )
-      .catch(err => console.log(err))
+      .catch(err =>
+        this.setState({ error: "Error fetching review info!", loading: false })
+      )
   }
 
   action = event => {
@@ -135,13 +148,17 @@ class BookDescription extends Component {
       rating: 5,
       book_id: this.state.book.id
     }
+    this.setState({ loading: true })
     axios
       .post(endpoint, newReview, requestOptions)
       .then(res => {
+        this.setState({ error: "", loading: false })
         newReview.id = res.data
         this.fetchBookInfo(this.state.book.id)
       })
-      .catch(err => console.log(err))
+      .catch(err =>
+        this.setState({ error: "Error adding review!", loading: false })
+      )
   }
 
   editHandler = () => {
@@ -160,10 +177,16 @@ class BookDescription extends Component {
       review: this.state.currentReview.review.slice(),
       rating: this.state.currentReview.rating
     }
+    this.setState({ loading: true })
     axios
       .put(endpoint, updatedReview, requestOptions)
-      .then(res => this.fetchBookInfo(this.state.book.id))
-      .catch(err => console.log(err))
+      .then(res => {
+        this.setState({ error: "", loading: false })
+        this.fetchBookInfo(this.state.book.id)
+      })
+      .catch(err =>
+        this.setState({ error: "Error editing review!", loading: false })
+      )
   }
 
   deleteHandler = event => {
@@ -179,13 +202,17 @@ class BookDescription extends Component {
         }
       }
       if (!token) this.props.history.push("/login")
+      this.setState({ loading: true })
       axios
         .delete(endpoint, requestOptions)
         .then(res => {
+          this.setState({ error: "", loading: false })
           this.fetchBookInfo(this.state.book.id)
           this.toggleWarning()
         })
-        .catch(err => console.log(err))
+        .catch(err =>
+          this.setState({ error: "Error deleting review!", loading: false })
+        )
     } else if (this.state.warningType === "book") {
       this.props.deleteBook(this.state.book.id)
       this.props.history.push(`/books/category/${this.state.book.subject}`)
@@ -203,6 +230,18 @@ class BookDescription extends Component {
     return (
       <div>
         <BackgroundImage />
+        {this.state.error ? (
+          <Message error>
+            <h2>{this.state.error}</h2>
+          </Message>
+        ) : null}
+        <Loading>
+          <ClipLoader
+            size={150}
+            color={"#BC1102"}
+            loading={this.state.loading}
+          />
+        </Loading>
         <Zoom>
           <DescriptionWrapper>
             <IconGroup>

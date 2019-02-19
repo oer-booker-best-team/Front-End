@@ -1,11 +1,13 @@
 import React, { Component } from "react"
 import Zoom from "react-reveal/Zoom"
 import axios from "axios"
+import { ClipLoader } from "react-spinners"
 
-import { Button, InputBox } from "../styles/formStyles"
+import { Button, InputBox, Message } from "../styles/formStyles"
 import { AddForm, BookInfo, Subject, Links } from "../styles/addFormStyles"
 import BackgroundImage from "../components/BackgroundImage"
 import bookImage from "../assets/images/bookcase.jpg"
+import { Loading } from "../styles/basicStyles"
 
 class BookForm extends Component {
   constructor(props) {
@@ -19,7 +21,9 @@ class BookForm extends Component {
         subject: "",
         image: bookImage,
         link: ""
-      }
+      },
+      error: "",
+      loading: false
     }
   }
 
@@ -36,15 +40,21 @@ class BookForm extends Component {
         const getBookInfoUrl = `https://open-source-edu-books.herokuapp.com/books/${
           this.props.match.params.id
         }`
+        this.setState({ loading: true })
         axios
           .get(getBookInfoUrl, requestOptions)
           .then(res => {
             const currentInfo = { ...res.data }
             delete currentInfo.id
             delete currentInfo.reviews
-            this.setState({ bookInfo: currentInfo })
+            this.setState({ bookInfo: currentInfo, error: "", loading: false })
           })
-          .catch(err => console.log(err))
+          .catch(err =>
+            this.setState({
+              error: "Error fetching book info!",
+              loading: false
+            })
+          )
       } else {
         const reset = {
           title: "",
@@ -80,26 +90,34 @@ class BookForm extends Component {
     else {
       if (this.props.type === "Add") {
         const bookInfoURL = `https://open-source-edu-books.herokuapp.com/books`
+        this.setState({ loading: true })
         axios
           .post(bookInfoURL, this.state.bookInfo, requestOptions)
           .then(res => {
+            this.setState({ error: "", loading: false })
             this.props.update()
             this.props.history.push(
               `/books/category/${this.state.bookInfo.subject}`
             )
           })
-          .catch(err => console.log(err))
+          .catch(err =>
+            this.setState({ error: "Error adding book!", loading: false })
+          )
       } else if (this.props.type === "Update") {
         const getBookInfoUrl = `https://open-source-edu-books.herokuapp.com/books/${
           this.props.match.params.id
         }`
+        this.setState({ loading: true })
         axios
           .put(getBookInfoUrl, this.state.bookInfo, requestOptions)
           .then(res => {
+            this.setState({ error: "", loading: false })
             this.props.update()
             this.props.history.goBack()
           })
-          .catch(err => console.log(err))
+          .catch(err =>
+            this.setState({ error: "Error updating book!", loading: false })
+          )
       }
     }
   }
@@ -108,6 +126,18 @@ class BookForm extends Component {
     return (
       <div>
         <BackgroundImage />
+        {this.state.error ? (
+          <Message error>
+            <h2>{this.state.error}</h2>
+          </Message>
+        ) : null}
+        <Loading>
+          <ClipLoader
+            size={150}
+            color={"#BC1102"}
+            loading={this.state.loading}
+          />
+        </Loading>
         <Zoom>
           <AddForm onSubmit={this.action}>
             <h1>{this.props.type} A Book</h1>

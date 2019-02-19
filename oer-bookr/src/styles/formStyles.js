@@ -87,7 +87,7 @@ export const Logout = styled.div`
 export const Message = styled.div`
   color: #bc1102;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 100px;
 `
 
 export const MessageLogin = styled(Message)`

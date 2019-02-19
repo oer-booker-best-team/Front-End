@@ -2,6 +2,7 @@ import React from "react"
 import Rotate from "react-reveal/Rotate"
 import axios from "axios"
 import { Link } from "react-router-dom"
+import { ClipLoader } from "react-spinners"
 
 import {
   InputLabel,
@@ -11,6 +12,7 @@ import {
   MessageLogin
 } from "../../styles/formStyles"
 import { LoginForm } from "../../styles/loginFormStyles"
+import { Loading } from "../../styles/basicStyles"
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -20,7 +22,8 @@ class SignIn extends React.Component {
         username: "",
         password: ""
       },
-      error: ""
+      error: "",
+      loading: false
     }
   }
 
@@ -32,11 +35,12 @@ class SignIn extends React.Component {
 
   SignInUser = event => {
     event.preventDefault()
-    const loginURL = "https://open-source-edu-books.herokuapp.com/login"
+    const loginURL = "https://open-source-edu-books.herokuapp.com/logi"
+    this.setState({ loading: true })
     axios
       .post(loginURL, this.state.userData)
       .then(res => {
-        this.setState({ error: "" })
+        this.setState({ error: "", loading: false })
         localStorage.setItem("jwt", res.data.token)
         localStorage.setItem("currentUser", this.state.userData.username)
         this.props.history.push("/")
@@ -44,7 +48,8 @@ class SignIn extends React.Component {
       .catch(err => {
         console.log(err)
         this.setState({
-          error: "There was a problem with the login, try again please"
+          error: "There was a problem with the login, try again please",
+          loading: false
         })
       })
   }
@@ -57,6 +62,13 @@ class SignIn extends React.Component {
             <h2>{this.state.error}</h2>
           </Message>
         ) : null}
+        <Loading>
+          <ClipLoader
+            size={150}
+            color={"#BC1102"}
+            loading={this.state.loading}
+          />
+        </Loading>
         <Rotate top left>
           <LoginForm onSubmit={this.SignInUser}>
             <h1>Login</h1>

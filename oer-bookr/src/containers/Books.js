@@ -1,16 +1,21 @@
 import React, { Component } from "react"
 import { Route, withRouter, Switch } from "react-router-dom"
 import axios from "axios"
+import { ClipLoader } from "react-spinners"
 
 import Navigation from "../components/navigation/Navigation"
 import CategoryList from "../components/category/CategoryList"
 import BooksList from "../components/book/BooksList"
 import BookDescription from "./BookDescription"
 import BookForm from "./BookForm"
+import { Loading } from "../styles/basicStyles"
+import { Message } from "../styles/formStyles"
 
 class Books extends Component {
   state = {
-    booksList: []
+    booksList: [],
+    error: "",
+    loading: false
   }
 
   componentDidMount = () => {
@@ -28,12 +33,15 @@ class Books extends Component {
     }
     if (!token) this.props.history.push("/login")
     else {
+      this.setState({ loading: true })
       axios
         .get(endpoint, requestOptions)
         .then(res => {
-          this.setState({ booksList: res.data })
+          this.setState({ booksList: res.data, error: "", loading: false })
         })
-        .catch(err => console.log("Error fetching books!", err))
+        .catch(err =>
+          this.setState({ error: "Error fetching book!", loading: false })
+        )
     }
   }
 
@@ -47,12 +55,16 @@ class Books extends Component {
     }
     if (!token) this.props.history.push("/login")
     else {
+      this.setState({ loading: true })
       axios
         .delete(endpoint, requestOptions)
         .then(res => {
+          this.setState({ error: "", loading: false })
           this.updateBooks()
         })
-        .catch(err => console.log("Error fetching books!", err))
+        .catch(err =>
+          this.setState({ error: "Error deleting book!", loading: false })
+        )
     }
   }
 
@@ -60,6 +72,18 @@ class Books extends Component {
     return (
       <div>
         <Navigation />
+        {this.state.error ? (
+          <Message error>
+            <h2>{this.state.error}</h2>
+          </Message>
+        ) : null}
+        <Loading>
+          <ClipLoader
+            size={150}
+            color={"#BC1102"}
+            loading={this.state.loading}
+          />
+        </Loading>
         <Switch>
           <Route
             path="/books/category/:subject"
