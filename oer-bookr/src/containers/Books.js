@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Route, withRouter, Switch } from "react-router-dom"
+import { Route, Switch } from "react-router-dom"
 import axios from "axios"
 import { ClipLoader } from "react-spinners"
 
@@ -68,6 +68,68 @@ class Books extends Component {
     }
   }
 
+  action = (bookInfo, type, id) => {
+    const token = localStorage.getItem("jwt")
+    const requestOptions = {
+      headers: {
+        authorization: token
+      }
+    }
+    if (!token) this.props.history.push("/login")
+    else {
+      if (type === "Add") {
+        const bookInfoURL = `https://open-source-edu-books.herokuapp.com/books`
+        if (
+          !bookInfo.title ||
+          !bookInfo.author ||
+          !bookInfo.publisher ||
+          !bookInfo.license
+        )
+          this.setState({ error: "Please fill all the required fields" })
+        else {
+          this.setState({ loading: true })
+          axios
+            .post(bookInfoURL, bookInfo, requestOptions)
+            .then(res => {
+              this.setState({ error: "", loading: false })
+              this.props.history.push(`/books/category/${bookInfo.subject}`)
+            })
+            .catch(err => {
+              this.setState({
+                error: "Error adding book! -- " + this.state.error,
+                loading: false
+              })
+            })
+        }
+      } else if (type === "Update") {
+        const getBookInfoUrl = `https://open-source-edu-books.herokuapp.com/books/${id}`
+        if (
+          !bookInfo.title ||
+          !bookInfo.author ||
+          !bookInfo.publisher ||
+          !bookInfo.license
+        )
+          this.setState({ error: "Please fill all the required fields" })
+        else {
+          this.setState({ loading: true })
+          axios
+            .put(getBookInfoUrl, bookInfo, requestOptions)
+            .then(res => {
+              this.setState({ error: "", loading: false })
+              this.props.history.goBack()
+            })
+            .catch(err =>
+              this.setState({
+                error: "Error updating book! -- " + this.state.error,
+                loading: false
+              })
+            )
+        }
+      }
+    }
+    this.updateBooks()
+  }
+
   render() {
     return (
       <div>
@@ -98,13 +160,23 @@ class Books extends Component {
           <Route
             path="/books/add"
             render={props => (
-              <BookForm {...props} type="Add" update={this.updateBooks} />
+              <BookForm
+                {...props}
+                type="Add"
+                // update={this.updateBooks}
+                action={this.action}
+              />
             )}
           />
           <Route
             path="/books/update/:id"
             render={props => (
-              <BookForm {...props} type="Update" update={this.updateBooks} />
+              <BookForm
+                {...props}
+                type="Update"
+                // update={this.updateBooks}
+                action={this.action}
+              />
             )}
           />
           <Route
@@ -126,4 +198,4 @@ class Books extends Component {
   }
 }
 
-export default withRouter(Books)
+export default Books
