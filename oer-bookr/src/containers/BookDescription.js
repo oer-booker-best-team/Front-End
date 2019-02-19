@@ -38,7 +38,7 @@ class BookDescription extends Component {
   }
 
   fetchBookInfo = id => {
-    const bookInfoURL = `https://oer-bookr-api.herokuapp.com/books/${id}`
+    const bookInfoURL = `https://open-source-edu-books.herokuapp.com/books/${id}`
     const token = localStorage.getItem("jwt")
     const requestOptions = {
       headers: {
@@ -91,7 +91,7 @@ class BookDescription extends Component {
   }
 
   toggleEdit = id => {
-    const endpoint = `https://oer-bookr-api.herokuapp.com/reviews/${id}`
+    const endpoint = `https://open-source-edu-books.herokuapp.com/reviews/${id}`
     const token = localStorage.getItem("jwt")
     const requestOptions = {
       headers: {
@@ -121,7 +121,7 @@ class BookDescription extends Component {
   }
 
   addHandler = () => {
-    const endpoint = "https://oer-bookr-api.herokuapp.com/reviews"
+    const endpoint = "https://open-source-edu-books.herokuapp.com/reviews"
     const token = localStorage.getItem("jwt")
     const requestOptions = {
       headers: {
@@ -145,7 +145,7 @@ class BookDescription extends Component {
   }
 
   editHandler = () => {
-    const endpoint = `https://oer-bookr-api.herokuapp.com/reviews/${
+    const endpoint = `https://open-source-edu-books.herokuapp.com/reviews/${
       this.state.currentReview.id
     }`
     const token = localStorage.getItem("jwt")
@@ -169,7 +169,7 @@ class BookDescription extends Component {
   deleteHandler = event => {
     event.preventDefault()
     if (this.state.warningType === "review") {
-      const endpoint = `https://oer-bookr-api.herokuapp.com/reviews/${
+      const endpoint = `https://open-source-edu-books.herokuapp.com/reviews/${
         this.state.reviewId
       }`
       const token = localStorage.getItem("jwt")

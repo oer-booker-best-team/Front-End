@@ -33,7 +33,7 @@ class BookForm extends Component {
     if (!token) this.props.history.push("/login")
     else {
       if (this.props.type === "Update") {
-        const getBookInfoUrl = `https://oer-bookr-api.herokuapp.com/books/${
+        const getBookInfoUrl = `https://open-source-edu-books.herokuapp.com/books/${
           this.props.match.params.id
         }`
         axios
@@ -79,7 +79,7 @@ class BookForm extends Component {
     if (!token) this.props.history.push("/login")
     else {
       if (this.props.type === "Add") {
-        const bookInfoURL = `https://oer-bookr-api.herokuapp.com/books`
+        const bookInfoURL = `https://open-source-edu-books.herokuapp.com/books`
         axios
           .post(bookInfoURL, this.state.bookInfo, requestOptions)
           .then(res => {
@@ -90,7 +90,7 @@ class BookForm extends Component {
           })
           .catch(err => console.log(err))
       } else if (this.props.type === "Update") {
-        const getBookInfoUrl = `https://oer-bookr-api.herokuapp.com/books/${
+        const getBookInfoUrl = `https://open-source-edu-books.herokuapp.com/books/${
           this.props.match.params.id
         }`
         axios

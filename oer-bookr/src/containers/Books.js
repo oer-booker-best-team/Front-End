@@ -19,7 +19,7 @@ class Books extends Component {
   }
 
   updateBooks = () => {
-    const endpoint = "https://oer-bookr-api.herokuapp.com/books"
+    const endpoint = "https://open-source-edu-books.herokuapp.com/books"
     const token = localStorage.getItem("jwt")
     const requestOptions = {
       headers: {
@@ -38,7 +38,7 @@ class Books extends Component {
   }
 
   deleteHandler = id => {
-    const endpoint = `https://oer-bookr-api.herokuapp.com/books/${id}`
+    const endpoint = `https://open-source-edu-books.herokuapp.com/books/${id}`
     const token = localStorage.getItem("jwt")
     const requestOptions = {
       headers: {

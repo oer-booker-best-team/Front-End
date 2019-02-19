@@ -32,7 +32,7 @@ class SignIn extends React.Component {
 
   SignInUser = event => {
     event.preventDefault()
-    const loginURL = "https://oer-bookr-api.herokuapp.com/login"
+    const loginURL = "https://open-source-edu-books.herokuapp.com/login"
     axios
       .post(loginURL, this.state.userData)
       .then(res => {
