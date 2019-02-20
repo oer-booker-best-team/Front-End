@@ -266,7 +266,7 @@ class BookDescription extends Component {
             </IconGroup>
             <BookHeader>
               <h1>{this.state.book.title}</h1>
-              <img src={this.state.book.image} />
+              <img src={this.state.book.image} alt="Book Cover" />
             </BookHeader>
             <div>
               <div>{sections.map(makeSectionDiv)}</div>

@@ -1,11 +1,12 @@
 import React from "react"
-import Rotate from "react-reveal/Rotate"
+import Zoom from "react-reveal/Zoom"
 import axios from "axios"
 import { ClipLoader } from "react-spinners"
 
 import { InputLabel, InputBox, Button, Message } from "../../styles/formStyles"
 import { LoginForm } from "../../styles/loginFormStyles"
 import { Loading } from "../../styles/basicStyles"
+import BackgroundImage from "../../components/BackgroundImage"
 
 class SignIn extends React.Component {
   constructor() {
@@ -73,7 +74,8 @@ class SignIn extends React.Component {
             loading={this.state.loading}
           />
         </Loading>
-        <Rotate top left>
+        <BackgroundImage />
+        <Zoom>
           <LoginForm onSubmit={this.SignInUser}>
             <h1>Sign In</h1>
             <div>
@@ -83,9 +85,9 @@ class SignIn extends React.Component {
               <InputBox
                 name="username"
                 type="text"
-                placeholder="Username"
                 onChange={this.saveInput}
                 value={this.state.username}
+                required
               />
             </div>
             <div>
@@ -95,16 +97,16 @@ class SignIn extends React.Component {
               <InputBox
                 name="password"
                 type="password"
-                placeholder="Password"
                 onChange={this.saveInput}
                 value={this.state.password}
+                required
               />
             </div>
             <Button type="submit" color="primary">
               Sign In
             </Button>
           </LoginForm>
-        </Rotate>
+        </Zoom>
       </>
     )
   }

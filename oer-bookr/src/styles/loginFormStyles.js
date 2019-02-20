@@ -1,14 +1,16 @@
 import styled from "styled-components"
 
-import Background from "../assets/images/bookcase.jpg"
 import { Form } from "./formStyles"
 
 export const LoginForm = styled(Form)`
   max-width: 600px;
   margin: 50px auto;
-  background-image: url(${Background});
+  background-color: #d7a481;
   border-radius: 10px;
   color: #fff;
+  position: relative;
+  top: 0;
+  left: 0;
 
   input {
     color: #fff;
@@ -16,7 +18,7 @@ export const LoginForm = styled(Form)`
   }
   h1 {
     text-align: center;
-    color: white;
+    color: #045d75;
     font-weight: 700;
   }
 `
