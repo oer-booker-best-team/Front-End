@@ -12,6 +12,7 @@ import Review from "../components/review/Review"
 import BackgroundImage from "../components/BackgroundImage"
 import { Icon, IconGroup, Loading } from "../styles/basicStyles"
 import StarReview from "../components/review/StarReview"
+import Warning from "../components/modals/Warning"
 
 class BookDescription extends Component {
   constructor(props) {
@@ -338,7 +339,13 @@ class BookDescription extends Component {
           </ModalFooter>
         </Modal>
 
-        <Modal
+        <Warning
+          open={this.state.warning}
+          toggle={this.toggleWarning}
+          action={this.deleteHandler}
+        />
+
+        {/* <Modal
           isOpen={this.state.warning}
           toggle={this.toggleWarning}
           centered
@@ -358,7 +365,7 @@ class BookDescription extends Component {
               </Button>
             </Form>
           </ModalBody>
-        </Modal>
+        </Modal> */}
       </div>
     )
   }
