@@ -79,14 +79,14 @@ class Books extends Component {
     else {
       if (type === "Add") {
         const bookInfoURL = `https://open-source-edu-books.herokuapp.com/books`
-
+        bookInfo.user_id = localStorage.getItem("currentUser")
         this.setState({ error: "", loading: true })
         axios
           .post(bookInfoURL, bookInfo, requestOptions)
           .then(res => {
             this.setState({ error: "", loading: false })
             this.updateBooks()
-            this.props.history.push(`/books/category/${bookInfo.subject}`)
+            this.props.history.push(`/books/category/My%20Books`)
           })
           .catch(err => {
             this.setState({
@@ -145,23 +145,13 @@ class Books extends Component {
           <Route
             path="/books/add"
             render={props => (
-              <BookForm
-                {...props}
-                type="Add"
-                // update={this.updateBooks}
-                action={this.action}
-              />
+              <BookForm {...props} type="Add" action={this.action} />
             )}
           />
           <Route
             path="/books/update/:id"
             render={props => (
-              <BookForm
-                {...props}
-                type="Update"
-                // update={this.updateBooks}
-                action={this.action}
-              />
+              <BookForm {...props} type="Update" action={this.action} />
             )}
           />
           <Route

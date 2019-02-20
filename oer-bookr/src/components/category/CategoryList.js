@@ -23,6 +23,7 @@ const CategoryList = props => {
           </p>
         </Header>
         <CategoriesWrapper>
+          <Category {...props} category={"My Books"} />
           {categories.map(category => (
             <Category {...props} category={category} key={category} />
           ))}

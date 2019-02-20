@@ -234,6 +234,12 @@ class BookDescription extends Component {
         <span>{capitalize(section)}:</span> {this.state.book[section]}
       </div>
     )
+    console.log(
+      "In BookDescription: ",
+      this.state.book.adder,
+      localStorage.getItem("currentUser")
+    )
+
     return (
       <div>
         <BackgroundImage />
@@ -251,19 +257,21 @@ class BookDescription extends Component {
         </Loading>
         <Zoom>
           <DescriptionWrapper>
-            <IconGroup>
-              <Icon show>
-                <i
-                  className="fas fa-minus-circle"
-                  onClick={() => this.toggleWarning("book")}
-                />
-              </Icon>
-              <Icon show>
-                <Link to={`/books/update/${this.state.book.id}`}>
-                  <i className="far fa-edit" />
-                </Link>
-              </Icon>
-            </IconGroup>
+            {this.state.book.adder === localStorage.getItem("currentUser") ? (
+              <IconGroup>
+                <Icon show>
+                  <i
+                    className="fas fa-minus-circle"
+                    onClick={() => this.toggleWarning("book")}
+                  />
+                </Icon>
+                <Icon show>
+                  <Link to={`/books/update/${this.state.book.id}`}>
+                    <i className="far fa-edit" />
+                  </Link>
+                </Icon>
+              </IconGroup>
+            ) : null}
             <BookHeader>
               <h1>{this.state.book.title}</h1>
               <img src={this.state.book.image} alt="Book Cover" />
