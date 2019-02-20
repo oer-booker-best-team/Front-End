@@ -344,28 +344,6 @@ class BookDescription extends Component {
           toggle={this.toggleWarning}
           action={this.deleteHandler}
         />
-
-        {/* <Modal
-          isOpen={this.state.warning}
-          toggle={this.toggleWarning}
-          centered
-          size="sm"
-        >
-          <ModalBody>
-            <Form onSubmit={this.deleteHandler}>
-              <Button type="submit" color="danger">
-                Delete
-              </Button>
-              <Button
-                type="button"
-                color="secondary"
-                onClick={this.toggleWarning}
-              >
-                Cancel
-              </Button>
-            </Form>
-          </ModalBody>
-        </Modal> */}
       </div>
     )
   }
