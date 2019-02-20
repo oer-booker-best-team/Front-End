@@ -20,13 +20,17 @@ export const Form = styled.form`
 `
 
 export const InputLabel = styled.label`
-  font-size: 1.4rem;
+  font-size: 25px;
   font-weight: bold;
   color: #fff;
+
+  i {
+    color: #045d75;
+  }
 `
 
 export const InputBox = styled.input`
-  font-size: 1.5rem;
+  font-size: 15px;
   padding: 5px;
   width: 100%;
   :focus {
@@ -34,8 +38,10 @@ export const InputBox = styled.input`
   }
   border-radius: 5px;
   margin-bottom: 10px;
-  border: 4px solid white;
-  border-top: none;
+  border: 1px solid #045d75;
+  border-bottom: 4px solid #045d75;
+  border-right: none;
+  box-shadow: 5px 10px #888888;
   background-color: transparent;
   font-size: 14px;
   ::placeholder {

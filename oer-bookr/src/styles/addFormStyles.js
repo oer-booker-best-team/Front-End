@@ -19,11 +19,9 @@ export const AddForm = styled(Form)`
     font-weight: 700;
   }
   input {
-    width: 45%;
-    margin: 20px 10px;
-    border-left: none;
-    border-right: none;
-    font-size: 30px;
+    width: 100%;
+    margin: 15px 10px;
+    font-size: 20px;
     color: #045d75;
     border-color: #045d75;
     ::placeholder {
@@ -51,18 +49,21 @@ export const Subject = styled.div`
   display: flex;
   justify-content: space-between;
   margin-left: 15px;
-  width: 40%;
+  width: 100%;
   select {
-    width: 70%;
+    width: 50%;
     color: #045d75;
     font-size: 25px;
     font-weight: 700;
-    background-color: transparent;
-    border: none;
+    border: 1px solid #045d75;
     border-bottom: 4px solid #045d75;
+    border-right: none;
+    box-shadow: 5px 10px #888888;
+    background-color: transparent;
     border-radius: 5px;
     padding: 10px;
     outline: none;
+    margin-left: 10px;
     :hover {
       background-color: #045d75;
       color: #fff;
@@ -72,4 +73,27 @@ export const Subject = styled.div`
 
 export const Links = styled.div`
   display: flex;
+
+  label {
+    width: 25%;
+  }
+`
+
+export const Group = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 10px;
+
+  label {
+    margin: 0 10px;
+  }
+  input {
+    width: 80%;
+    padding: 10px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
 `

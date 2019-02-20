@@ -3,8 +3,14 @@ import Zoom from "react-reveal/Zoom"
 import axios from "axios"
 import { ClipLoader } from "react-spinners"
 
-import { Button, InputBox, Message } from "../styles/formStyles"
-import { AddForm, BookInfo, Subject, Links } from "../styles/addFormStyles"
+import { Button, InputBox, InputLabel, Message } from "../styles/formStyles"
+import {
+  AddForm,
+  BookInfo,
+  Subject,
+  Links,
+  Group
+} from "../styles/addFormStyles"
 import BackgroundImage from "../components/BackgroundImage"
 import bookImage from "../assets/images/bookcase.jpg"
 import { Loading } from "../styles/basicStyles"
@@ -107,38 +113,58 @@ class BookForm extends Component {
           <AddForm onSubmit={this.submitHandler}>
             <h1>{this.props.type} A Book</h1>
             <BookInfo>
-              <InputBox
-                name="title"
-                type="text"
-                placeholder="Title *"
-                onChange={this.saveInput}
-                value={this.state.bookInfo.title}
-                required
-              />
-              <InputBox
-                name="author"
-                type="text"
-                placeholder="Author *"
-                onChange={this.saveInput}
-                value={this.state.bookInfo.author}
-                required
-              />
-              <InputBox
-                name="publisher"
-                type="text"
-                placeholder="Publisher *"
-                onChange={this.saveInput}
-                value={this.state.bookInfo.publisher}
-                required
-              />
-              <InputBox
-                name="license"
-                type="text"
-                placeholder="License *"
-                onChange={this.saveInput}
-                value={this.state.bookInfo.license}
-                required
-              />
+              <Group>
+                <InputLabel htmlFor="title">
+                  <i class="fas fa-book" /> Title
+                </InputLabel>
+                <InputBox
+                  name="title"
+                  type="text"
+                  placeholder="---"
+                  onChange={this.saveInput}
+                  value={this.state.bookInfo.title}
+                  required
+                />
+              </Group>
+              <Group>
+                <InputLabel htmlFor="author">
+                  <i class="fas fa-user" /> Author
+                </InputLabel>
+                <InputBox
+                  name="author"
+                  type="text"
+                  placeholder="---"
+                  onChange={this.saveInput}
+                  value={this.state.bookInfo.author}
+                  required
+                />
+              </Group>
+              <Group>
+                <InputLabel htmlFor="publisher">
+                  <i class="fas fa-user" /> Publisher
+                </InputLabel>
+                <InputBox
+                  name="publisher"
+                  type="text"
+                  placeholder="---"
+                  onChange={this.saveInput}
+                  value={this.state.bookInfo.publisher}
+                  required
+                />
+              </Group>
+              <Group>
+                <InputLabel htmlFor="license">
+                  <i class="fas fa-scroll" /> License
+                </InputLabel>
+                <InputBox
+                  name="license"
+                  type="text"
+                  placeholder="---"
+                  onChange={this.saveInput}
+                  value={this.state.bookInfo.license}
+                  required
+                />
+              </Group>
             </BookInfo>
             <Subject>
               <select
@@ -160,25 +186,35 @@ class BookForm extends Component {
               </select>
             </Subject>
             <Links>
-              <InputBox
-                name="image"
-                type="text"
-                placeholder="Image"
-                onChange={this.saveInput}
-                value={
-                  this.state.bookInfo.image ===
-                  "/static/media/bookcase.008fbbb5.jpg"
-                    ? ""
-                    : this.state.bookInfo.image
-                }
-              />
-              <InputBox
-                name="link"
-                type="text"
-                placeholder="Link"
-                onChange={this.saveInput}
-                value={this.state.bookInfo.link}
-              />
+              <Group>
+                <InputLabel htmlFor="image">
+                  <i class="fas fa-image" /> Image
+                </InputLabel>
+                <InputBox
+                  name="image"
+                  type="text"
+                  placeholder="---"
+                  onChange={this.saveInput}
+                  value={
+                    this.state.bookInfo.image ===
+                    "/static/media/bookcase.008fbbb5.jpg"
+                      ? ""
+                      : this.state.bookInfo.image
+                  }
+                />
+              </Group>
+              <Group>
+                <InputLabel htmlFor="link">
+                  <i class="fas fa-link" /> Link
+                </InputLabel>
+                <InputBox
+                  name="link"
+                  type="text"
+                  placeholder="---"
+                  onChange={this.saveInput}
+                  value={this.state.bookInfo.link}
+                />
+              </Group>
             </Links>
             <Button color="primary">{this.props.type} Book</Button>
           </AddForm>
