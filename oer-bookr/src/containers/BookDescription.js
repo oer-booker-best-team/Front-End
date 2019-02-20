@@ -19,7 +19,11 @@ class BookDescription extends Component {
     this.state = {
       book: {},
       modal: false,
-      currentReview: {},
+      currentReview: {
+        review: "",
+        rating: 5,
+        reviewer: ""
+      },
       reviewer: "",
       warning: false,
       reviewId: "",
@@ -150,6 +154,7 @@ class BookDescription extends Component {
       reviewer: this.state.reviewer,
       book_id: this.state.book.id
     }
+    if (!newReview.rating) newReview.rating = 5
     this.setState({ loading: true })
     axios
       .post(endpoint, newReview, requestOptions)
@@ -315,6 +320,7 @@ class BookDescription extends Component {
                   placeholder="Leave your comment"
                   onChange={this.setCurrentReview}
                   value={this.state.currentReview.review}
+                  required
                 />
               </div>
               <Button type="submit" color="secondary">
