@@ -234,11 +234,6 @@ class BookDescription extends Component {
         <span>{capitalize(section)}:</span> {this.state.book[section]}
       </div>
     )
-    console.log(
-      "In BookDescription: ",
-      this.state.book.adder,
-      localStorage.getItem("currentUser")
-    )
 
     return (
       <div>

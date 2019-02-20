@@ -79,7 +79,7 @@ class Books extends Component {
     else {
       if (type === "Add") {
         const bookInfoURL = `https://open-source-edu-books.herokuapp.com/books`
-        bookInfo.user_id = localStorage.getItem("currentUser")
+        bookInfo.adder = localStorage.getItem("currentUser")
         this.setState({ error: "", loading: true })
         axios
           .post(bookInfoURL, bookInfo, requestOptions)

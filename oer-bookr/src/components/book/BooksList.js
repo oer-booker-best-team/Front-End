@@ -12,7 +12,7 @@ const BooksList = props => {
   )
   if (props.match.params.subject === "My Books")
     booksList = props.books.filter(
-      book => book.user_id === localStorage.getItem("currentUser")
+      book => book.adder === localStorage.getItem("currentUser")
     )
   if (props.match.params.subject === "All Subjects")
     booksList = [...props.books]

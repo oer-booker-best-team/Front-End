@@ -54,6 +54,7 @@ class BookForm extends Component {
             const currentInfo = { ...res.data }
             delete currentInfo.id
             delete currentInfo.reviews
+            delete currentInfo.adder
             this.setState({ bookInfo: currentInfo, error: "", loading: false })
           })
           .catch(err =>

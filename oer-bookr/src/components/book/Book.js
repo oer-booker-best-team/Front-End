@@ -29,7 +29,6 @@ class Book extends React.Component {
         <span>{capitalize(section)}:</span> {this.props.book[section]}
       </div>
     )
-    console.log("In Book: ", this.props.book)
     return (
       <>
         <BookWrapper>
@@ -55,7 +54,7 @@ class Book extends React.Component {
               </a>
             </div>
           </BookInfo>
-          {this.props.book.user_id === localStorage.getItem("currentUser") ? (
+          {this.props.book.adder === localStorage.getItem("currentUser") ? (
             <IconGroup>
               <Icon show>
                 <i
