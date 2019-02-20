@@ -8,11 +8,21 @@ const Review = ({ review, toggleWarning, toggleEdit }) => {
   const currentUser = localStorage.getItem("currentUser")
   let canDelete = false
   if (currentUser === review.reviewer) canDelete = true
+  const stars = []
+  for (let i = 0; i < Math.floor(review.rating); i++) {
+    stars.push(<i className="fas fa-star" />)
+  }
+  if (!Number.isInteger(review.rating))
+    stars.push(<i className="fas fa-star-half-alt" />)
   return (
     <ReviewWrapper>
       <div>
         <p>
           <strong>{review.reviewer}</strong>
+        </p>
+        <p>
+          <strong>Rating: </strong>
+          {stars}
         </p>
         <p>{review.review}</p>
       </div>

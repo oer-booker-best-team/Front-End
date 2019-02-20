@@ -45,7 +45,11 @@ class Book extends React.Component {
             {sections.map(makeSectionDiv)}
             <div>
               <span>Link:</span>
-              <a href={this.props.book.link} target="_blank" rel="noopener">
+              <a
+                href={this.props.book.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {this.props.book.link}
               </a>
             </div>
