@@ -11,6 +11,7 @@ import { Button, Form, Message } from "../styles/formStyles"
 import Review from "../components/review/Review"
 import BackgroundImage from "../components/BackgroundImage"
 import { Icon, IconGroup, Loading } from "../styles/basicStyles"
+import StarReview from "../components/review/StarReview"
 
 class BookDescription extends Component {
   constructor(props) {
@@ -75,6 +76,8 @@ class BookDescription extends Component {
       ...this.state.currentReview,
       [event.target.name]: event.target.value
     }
+    if (event.target.name === "rating")
+      newReview.rating = Number(event.target.value)
     this.setState({ currentReview: newReview })
   }
 
@@ -145,7 +148,6 @@ class BookDescription extends Component {
     const newReview = {
       ...this.state.currentReview,
       reviewer: this.state.reviewer,
-      rating: 5,
       book_id: this.state.book.id
     }
     this.setState({ loading: true })
@@ -265,7 +267,11 @@ class BookDescription extends Component {
               <div>{sections.map(makeSectionDiv)}</div>
               <div>
                 <span>Link:</span>{" "}
-                <a href="{this.state.book.link}" target="_blank" rel="noopener">
+                <a
+                  href="{this.state.book.link}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {this.state.book.link}
                 </a>
               </div>
@@ -297,6 +303,9 @@ class BookDescription extends Component {
             <Form onSubmit={this.action}>
               <div>
                 <h3>Reviewer: {this.state.reviewer}</h3>
+              </div>
+              <div>
+                <StarReview setRating={this.setCurrentReview} />
               </div>
               <div>
                 <textarea
