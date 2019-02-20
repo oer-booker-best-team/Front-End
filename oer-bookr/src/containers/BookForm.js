@@ -26,7 +26,8 @@ class BookForm extends Component {
         license: "",
         subject: "",
         image: bookImage,
-        link: ""
+        link: "",
+        user_id: undefined
       },
       error: "",
       loading: false
@@ -53,6 +54,7 @@ class BookForm extends Component {
             const currentInfo = { ...res.data }
             delete currentInfo.id
             delete currentInfo.reviews
+            delete currentInfo.adder
             this.setState({ bookInfo: currentInfo, error: "", loading: false })
           })
           .catch(err =>
@@ -115,7 +117,7 @@ class BookForm extends Component {
             <BookInfo>
               <Group>
                 <InputLabel htmlFor="title">
-                  <i class="fas fa-book" /> Title
+                  <i className="fas fa-book" /> Title
                 </InputLabel>
                 <InputBox
                   name="title"
@@ -128,7 +130,7 @@ class BookForm extends Component {
               </Group>
               <Group>
                 <InputLabel htmlFor="author">
-                  <i class="fas fa-user" /> Author
+                  <i className="fas fa-user" /> Author
                 </InputLabel>
                 <InputBox
                   name="author"
@@ -141,7 +143,7 @@ class BookForm extends Component {
               </Group>
               <Group>
                 <InputLabel htmlFor="publisher">
-                  <i class="fas fa-user" /> Publisher
+                  <i className="fas fa-user" /> Publisher
                 </InputLabel>
                 <InputBox
                   name="publisher"
@@ -154,7 +156,7 @@ class BookForm extends Component {
               </Group>
               <Group>
                 <InputLabel htmlFor="license">
-                  <i class="fas fa-scroll" /> License
+                  <i className="fas fa-scroll" /> License
                 </InputLabel>
                 <InputBox
                   name="license"
@@ -188,7 +190,7 @@ class BookForm extends Component {
             <Links>
               <Group>
                 <InputLabel htmlFor="image">
-                  <i class="fas fa-image" /> Image
+                  <i className="fas fa-image" /> Image
                 </InputLabel>
                 <InputBox
                   name="image"
@@ -205,7 +207,7 @@ class BookForm extends Component {
               </Group>
               <Group>
                 <InputLabel htmlFor="link">
-                  <i class="fas fa-link" /> Link
+                  <i className="fas fa-link" /> Link
                 </InputLabel>
                 <InputBox
                   name="link"

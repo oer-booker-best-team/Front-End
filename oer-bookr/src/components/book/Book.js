@@ -54,16 +54,21 @@ class Book extends React.Component {
               </a>
             </div>
           </BookInfo>
-          <IconGroup>
-            <Icon show>
-              <i className="fas fa-minus-circle" onClick={this.toggleWarning} />
-            </Icon>
-            <Icon show>
-              <Link to={`/books/update/${this.props.book.id}`}>
-                <i className="far fa-edit" />
-              </Link>
-            </Icon>
-          </IconGroup>
+          {this.props.book.adder === localStorage.getItem("currentUser") ? (
+            <IconGroup>
+              <Icon show>
+                <i
+                  className="fas fa-minus-circle"
+                  onClick={this.toggleWarning}
+                />
+              </Icon>
+              <Icon show>
+                <Link to={`/books/update/${this.props.book.id}`}>
+                  <i className="far fa-edit" />
+                </Link>
+              </Icon>
+            </IconGroup>
+          ) : null}
         </BookWrapper>
 
         <Modal

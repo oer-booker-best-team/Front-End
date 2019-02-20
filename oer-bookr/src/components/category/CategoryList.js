@@ -8,7 +8,12 @@ import BackgroundImage from "../BackgroundImage"
 
 const CategoryList = props => {
   let categories = props.books.map(book => book.subject) //Get all subjects
-  categories = categories.filter((elem, pos, arr) => arr.indexOf(elem) === pos) //Filter duplicate subjects
+  categories = categories.filter(
+    (elem, pos, arr) => arr.indexOf(elem) === pos && elem !== "subject"
+  ) //Filter duplicate subjects
+  const createdList = props.books.filter(
+    book => book.adder === localStorage.getItem("currentUser")
+  )
   return (
     <>
       <BackgroundImage />
@@ -23,6 +28,9 @@ const CategoryList = props => {
           </p>
         </Header>
         <CategoriesWrapper>
+          {createdList.length !== 0 && (
+            <Category {...props} category={"My Books"} />
+          )}
           {categories.map(category => (
             <Category {...props} category={category} key={category} />
           ))}

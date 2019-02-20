@@ -10,6 +10,10 @@ const BooksList = props => {
   let booksList = props.books.filter(
     book => book.subject === props.match.params.subject
   )
+  if (props.match.params.subject === "My Books")
+    booksList = props.books.filter(
+      book => book.adder === localStorage.getItem("currentUser")
+    )
   if (props.match.params.subject === "All Subjects")
     booksList = [...props.books]
   if (booksList.length === 0) props.history.push("/")

@@ -4,6 +4,7 @@ import PropTypes from "prop-types"
 
 import { CategoryWrapper } from "../../styles/categoryStyles"
 
+import myBooks from "../../assets/images/categories/myBooks.jpg"
 import ancientCivilizations from "../../assets/images/categories/ancientCivilizations.jpg"
 import arts from "../../assets/images/categories/arts.jpg"
 import business from "../../assets/images/categories/business.jpg"
@@ -16,6 +17,9 @@ import all from "../../assets/images/categories/all.jpg"
 const Category = props => {
   let image = ""
   switch (props.category) {
+    case "My Books":
+      image = myBooks
+      break
     case "History":
       image = ancientCivilizations
       break
