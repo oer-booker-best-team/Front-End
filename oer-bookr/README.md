@@ -27,13 +27,13 @@ This project was created using create-react-app.
     - navigation: Component for the navigation bar
     - review: Component to display a specific review , with the reviewer and the text of the review, as well as the 5 stars rating. The StarReview component is used in adding/updating a review.
     - BackgroundImage: Used to display the background image of the application
+    - BookForm: Form used to add/update a book
 
   - containers:
 
     - Auth: Login and SignIn are used in the authentication part of the application, to login and sign in a user
     - BookDescription: Used when clicking on the title of a book. It displays all the information about the specific book. It also handles
       add/update/delete of a review about that book
-    - BookForm: Form used to add/update a book
     - Books: Used to display the home page. It also handles add/update/delete a book.
 
   - styles:

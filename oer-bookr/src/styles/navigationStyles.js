@@ -23,5 +23,15 @@ export const NavWrapper = styled.div`
   span {
     color: white;
     margin-left: 30px;
+
+    @media (max-width: 766px) {
+      margin-left: 0;
+    }
+  }
+
+  li {
+    @media (max-width: 766px) {
+      margin-bottom: 10px;
+    }
   }
 `

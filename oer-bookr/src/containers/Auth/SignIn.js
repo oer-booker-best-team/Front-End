@@ -3,7 +3,7 @@ import Zoom from "react-reveal/Zoom"
 import axios from "axios"
 import { ClipLoader } from "react-spinners"
 
-import { InputLabel, InputBox, Button, Message } from "../../styles/formStyles"
+import { Row, Button, Message } from "../../styles/formStyles"
 import { LoginForm } from "../../styles/loginFormStyles"
 import { Loading } from "../../styles/basicStyles"
 import BackgroundImage from "../../components/BackgroundImage"
@@ -78,30 +78,32 @@ class SignIn extends React.Component {
         <Zoom>
           <LoginForm onSubmit={this.SignInUser}>
             <h1>Sign In</h1>
-            <div>
-              <InputLabel htmlFor="username">
-                <i className="far fa-user" /> Username
-              </InputLabel>
-              <InputBox
+            <Row>
+              <input
                 name="username"
                 type="text"
+                autocomplete="off"
                 onChange={this.saveInput}
                 value={this.state.username}
                 required
               />
-            </div>
-            <div>
-              <InputLabel htmlFor="password">
-                <i className="fas fa-unlock-alt" /> Password
-              </InputLabel>
-              <InputBox
+              <label htmlFor="username">
+                <i className="far fa-user" /> Username
+              </label>
+            </Row>
+            <Row>
+              <input
                 name="password"
                 type="password"
+                autocomplete="off"
                 onChange={this.saveInput}
                 value={this.state.password}
                 required
               />
-            </div>
+              <label htmlFor="password">
+                <i className="fas fa-unlock-alt" /> Password
+              </label>
+            </Row>
             <Button type="submit" color="primary">
               Sign In
             </Button>

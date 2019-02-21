@@ -3,7 +3,7 @@ import styled from "styled-components"
 export const BooksWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 80%;
+  /* width: 80%; */
   margin: 0 auto;
   position: relative;
   top: 0;
@@ -23,7 +23,7 @@ export const BookWrapper = styled.div`
   width: 45%;
 
   img {
-    height: 150px;
+    height: 200px;
     background-size: 100%;
     background-repeat: no-repeat;
   }
@@ -31,6 +31,23 @@ export const BookWrapper = styled.div`
   i {
     color: #730200;
     font-size: 18px;
+    margin-left: 10px;
+  }
+
+  @media (max-width: 1200px) {
+    flex-direction: column;
+    img {
+      margin: 20px auto;
+    }
+  }
+  @media (max-width: 850px) {
+    width: 100%;
+    flex-direction: row;
+    img {
+      margin: 0;
+      width: 35%;
+      height: 180px;
+    }
   }
 `
 
@@ -50,6 +67,10 @@ export const BookInfo = styled.div`
       color: #bc1102;
       text-decoration: none;
     }
+  }
+
+  @media (max-width: 1200px) {
+    width: 100%;
   }
 `
 
@@ -91,6 +112,10 @@ export const DescriptionWrapper = styled.div`
   a {
     color: #730200;
   }
+
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
 `
 
 export const BookHeader = styled.div`
@@ -98,7 +123,11 @@ export const BookHeader = styled.div`
   justify-content: space-around;
   align-items: center;
   img {
-    width: 20%;
     height: 200px;
+  }
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    margin-bottom: 30px;
   }
 `

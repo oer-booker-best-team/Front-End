@@ -8,44 +8,24 @@ export const Form = styled.form`
     color: #045d75;
   }
 
-  input,
-  textarea {
-    color: #045d75;
-  }
-
   textarea {
     font-size: 20px;
     width: 100%;
   }
-`
 
-export const InputLabel = styled.label`
-  font-size: 25px;
-  font-weight: bold;
-  color: #fff;
+  h1 {
+    margin: auto;
+    color: white;
+    font-weight: 700;
+    background-color: #045d75;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 10px;
 
-  i {
-    color: #045d75;
-  }
-`
-
-export const InputBox = styled.input`
-  font-size: 15px;
-  padding: 5px;
-  width: 100%;
-  :focus {
-    outline: none;
-  }
-  border-radius: 5px;
-  margin-bottom: 10px;
-  border: 1px solid #045d75;
-  border-bottom: 4px solid #045d75;
-  border-right: none;
-  box-shadow: 5px 10px #888888;
-  background-color: transparent;
-  font-size: 14px;
-  ::placeholder {
-    color: #fff;
+    @media (max-width: 900px) {
+      font-size: 25px;
+    }
   }
 `
 
@@ -103,6 +83,93 @@ export const MessageLogin = styled(Message)`
     color: white;
     :hover {
       color: #045d75;
+    }
+  }
+`
+
+export const Row = styled.div`
+  margin-bottom: 25px;
+  position: relative;
+  overflow: hidden;
+  margin-right: 20px;
+  margin-left: 20px;
+
+  input {
+    width: 100%;
+    height: 40px;
+    font-size: 25px;
+    padding: 10px;
+    padding-left: 30%;
+    box-sizing: border-box;
+    border: 1px solid #045d75;
+    border-bottom: 4px solid #045d75;
+    box-shadow: 5px 10px #888888;
+    background-color: transparent;
+    color: white;
+    border-radius: 5px;
+    transition: all 0.3s cubic-bezier(1, 0.1, 0, 0.9);
+
+    :focus {
+      outline: none;
+    }
+    :focus + label {
+      background-color: #730200;
+    }
+  }
+
+  input + label {
+    background-color: #045d75;
+  }
+
+  label {
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: bold;
+    width: 22%;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    padding: 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: white;
+    border-radius: 3px 0 0 3px;
+    transition: background-color 2s ease-out;
+
+    i {
+      color: white;
+      margin-right: 5px;
+
+      @media (max-width: 900px) {
+        display: none;
+      }
+    }
+  }
+
+  select {
+    width: 50%;
+    color: white;
+    font-size: 25px;
+    font-weight: 700;
+    border: 1px solid #045d75;
+    border-bottom: 4px solid #045d75;
+    border-right: none;
+    box-shadow: 5px 10px #888888;
+    background-color: #045d75;
+    border-radius: 5px;
+    padding: 10px;
+    outline: none;
+    transition: background-color 2s ease-out;
+    :focus {
+      background-color: #730200;
+    }
+
+    @media (max-width: 900px) {
+      width: 100%;
+      font-size: 14px;
     }
   }
 `

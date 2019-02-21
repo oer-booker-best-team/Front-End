@@ -5,7 +5,7 @@ export const CategoriesWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
-  margin: 100px auto;
+  margin: 50px auto;
 `
 
 export const CategoryWrapper = styled.div`
@@ -38,5 +38,13 @@ export const CategoryWrapper = styled.div`
     font-weight: 700;
     color: #bc1102;
     width: 70%;
+  }
+
+  @media (max-width: 1000px) {
+    width: 45%;
+  }
+  @media (max-width: 700px) {
+    width: 100%;
+    margin: 20px 50px;
   }
 `
