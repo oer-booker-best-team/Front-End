@@ -7,7 +7,7 @@ import Navigation from "../components/navigation/Navigation"
 import CategoryList from "../components/category/CategoryList"
 import BooksList from "../components/book/BooksList"
 import BookDescription from "./BookDescription"
-import BookForm from "./BookForm"
+import BookForm from "../components/forms/BookForm"
 import { Loading } from "../styles/basicStyles"
 import { Message } from "../styles/formStyles"
 

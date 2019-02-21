@@ -8,44 +8,20 @@ export const Form = styled.form`
     color: #045d75;
   }
 
-  input,
-  textarea {
-    color: #045d75;
-  }
-
   textarea {
     font-size: 20px;
     width: 100%;
   }
-`
 
-export const InputLabel = styled.label`
-  font-size: 25px;
-  font-weight: bold;
-  color: #fff;
-
-  i {
-    color: #045d75;
-  }
-`
-
-export const InputBox = styled.input`
-  font-size: 15px;
-  padding: 5px;
-  width: 100%;
-  :focus {
-    outline: none;
-  }
-  border-radius: 5px;
-  margin-bottom: 10px;
-  border: 1px solid #045d75;
-  border-bottom: 4px solid #045d75;
-  border-right: none;
-  box-shadow: 5px 10px #888888;
-  background-color: transparent;
-  font-size: 14px;
-  ::placeholder {
-    color: #fff;
+  h1 {
+    margin: auto;
+    color: white;
+    font-weight: 700;
+    background-color: #045d75;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 10px;
   }
 `
 
@@ -111,6 +87,8 @@ export const Row = styled.div`
   margin-bottom: 25px;
   position: relative;
   overflow: hidden;
+  margin-right: 20px;
+  margin-left: 20px;
 
   input {
     width: 100%;
@@ -123,7 +101,7 @@ export const Row = styled.div`
     border-bottom: 4px solid #045d75;
     box-shadow: 5px 10px #888888;
     background-color: transparent;
-    color: #333;
+    color: white;
     border-radius: 5px;
     transition: all 0.3s cubic-bezier(1, 0.1, 0, 0.9);
 
@@ -131,8 +109,12 @@ export const Row = styled.div`
       outline: none;
     }
     :focus + label {
-      transform: translateZ(0) translateX(-100%);
+      background-color: #730200;
     }
+  }
+
+  input + label {
+    background-color: #045d75;
   }
 
   label {
@@ -144,20 +126,37 @@ export const Row = styled.div`
     line-height: 40px;
     font-size: 14px;
     font-weight: bold;
-    width: 25%;
-    padding: 5px;
+    width: 22%;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    padding: 0 10px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: white;
-    background: #045d75;
     border-radius: 3px 0 0 3px;
-    transition: all 0.3s cubic-bezier(1, 0.1, 0, 0.9);
-    transform: translateZ(0) translateX(0);
+    transition: background-color 2s ease-out;
 
     i {
       color: white;
+      margin-right: 5px;
+    }
+  }
+
+  select {
+    width: 50%;
+    color: white;
+    font-size: 25px;
+    font-weight: 700;
+    border: 1px solid #045d75;
+    border-bottom: 4px solid #045d75;
+    border-right: none;
+    box-shadow: 5px 10px #888888;
+    background-color: #045d75;
+    border-radius: 5px;
+    padding: 10px;
+    outline: none;
+    transition: background-color 2s ease-out;
+    :focus {
+      background-color: #730200;
     }
   }
 `
