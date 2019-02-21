@@ -26,6 +26,7 @@ class Navigation extends React.Component {
     })
   }
   render() {
+    const userName = localStorage.getItem("currentUser")
     return (
       <NavWrapper>
         <Navbar fixed="top" color="dark" dark expand="md">
@@ -68,6 +69,11 @@ class Navigation extends React.Component {
                   </Logout>
                 </a>
               </NavItem>
+              {userName ? (
+                <NavItem>
+                  <span>| {userName} |</span>
+                </NavItem>
+              ) : null}
             </Nav>
           </Collapse>
         </Navbar>

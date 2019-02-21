@@ -19,4 +19,9 @@ export const NavWrapper = styled.div`
     padding: 5px;
     border-bottom: 3px solid #045d75;
   }
+
+  span {
+    color: white;
+    margin-left: 30px;
+  }
 `
