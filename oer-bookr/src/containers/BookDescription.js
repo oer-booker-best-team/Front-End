@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap"
 import Zoom from "react-reveal/Zoom"
 import axios from "axios"
 import { Link } from "react-router-dom"
@@ -7,12 +6,12 @@ import { ClipLoader } from "react-spinners"
 
 import { DescriptionWrapper, BookHeader } from "../styles/bookStyles"
 import { ReviewsWrapper } from "../styles/reviewStyles"
-import { Button, Form, Message } from "../styles/formStyles"
+import { Button, Message } from "../styles/formStyles"
 import Review from "../components/review/Review"
 import BackgroundImage from "../components/BackgroundImage"
 import { Icon, IconGroup, Loading } from "../styles/basicStyles"
-import StarReview from "../components/review/StarReview"
 import Warning from "../components/modals/Warning"
+import ReviewModal from "../components/modals/Modal"
 
 class BookDescription extends Component {
   constructor(props) {
@@ -20,11 +19,7 @@ class BookDescription extends Component {
     this.state = {
       book: {},
       modal: false,
-      currentReview: {
-        review: "",
-        rating: 5,
-        reviewer: ""
-      },
+      currentReview: {},
       reviewer: "",
       warning: false,
       reviewId: "",
@@ -62,12 +57,7 @@ class BookDescription extends Component {
         .then(res => {
           this.setState({
             book: res.data,
-            currentReview: {},
-            reviewId: "",
-            actionType: "",
-            warningType: "",
-            error: "",
-            loading: false
+            error: ""
           })
         })
         .catch(
@@ -76,21 +66,10 @@ class BookDescription extends Component {
     }
   }
 
-  setCurrentReview = event => {
-    const newReview = {
-      ...this.state.currentReview,
-      [event.target.name]: event.target.value
-    }
-    if (event.target.name === "rating")
-      newReview.rating = Number(event.target.value)
-    this.setState({ currentReview: newReview })
-  }
-
   toggle = () => {
     this.setState(prevState => {
       return {
         modal: !prevState.modal,
-        text: "",
         actionType: "Add"
       }
     })
@@ -118,7 +97,7 @@ class BookDescription extends Component {
     this.setState({ loading: true })
     axios
       .get(endpoint, requestOptions)
-      .then(res =>
+      .then(res => {
         this.setState(prevState => {
           return {
             modal: !prevState.modal,
@@ -128,15 +107,26 @@ class BookDescription extends Component {
             loading: false
           }
         })
-      )
+      })
       .catch(err =>
         this.setState({ error: "Error fetching review info!", loading: false })
       )
   }
 
-  action = event => {
+  setCurrentReview = event => {
+    const newReview = {
+      ...this.state.currentReview
+    }
+    if (event.target.name === "rating")
+      newReview.rating = Number(event.target.value)
+    else newReview[event.target.name] = event.target.value
+    this.setState({ currentReview: newReview })
+  }
+
+  action = (event, review) => {
     event.preventDefault()
     this.toggle()
+    this.setState({ currentReview: review })
     if (this.state.actionType === "Add") this.addHandler()
     if (this.state.actionType === "Edit") this.editHandler()
   }
@@ -304,40 +294,16 @@ class BookDescription extends Component {
             </ReviewsWrapper>
           </DescriptionWrapper>
         </Zoom>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} centered>
-          <ModalHeader toggle={this.toggle}>
-            {this.state.actionType} Review
-          </ModalHeader>
-          <ModalBody>
-            <Form onSubmit={this.action}>
-              <div>
-                <h3>Reviewer: {this.state.reviewer}</h3>
-              </div>
-              <div>
-                <StarReview setRating={this.setCurrentReview} />
-              </div>
-              <div>
-                <textarea
-                  rows="4"
-                  cols="25"
-                  name="review"
-                  placeholder="Leave your comment"
-                  onChange={this.setCurrentReview}
-                  value={this.state.currentReview.review}
-                  required
-                />
-              </div>
-              <Button type="submit" color="secondary">
-                {this.state.actionType} Review
-              </Button>
-            </Form>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="secondary" onClick={this.toggle}>
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Modal>
+
+        <ReviewModal
+          open={this.state.modal}
+          toggle={this.toggle}
+          action={this.action}
+          actionType={this.state.actionType}
+          reviewer={this.state.reviewer}
+          review={{ ...this.state.currentReview }}
+          saveInput={this.setCurrentReview}
+        />
 
         <Warning
           open={this.state.warning}
