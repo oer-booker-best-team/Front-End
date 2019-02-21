@@ -49,7 +49,7 @@ class Navigation extends React.Component {
               </NavItem>
               <NavItem>
                 <NavLink to="/signIn" exact>
-                  Sign In
+                  Signup
                 </NavLink>
               </NavItem>
               <NavItem>

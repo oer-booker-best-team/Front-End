@@ -36,14 +36,14 @@ class Book extends React.Component {
           </Zoom>
           <BookInfo>
             <div>
-              <span>Title:</span>
+              <span>Title: </span>
               <Link to={`/books/${this.props.book.id}`}>
                 {this.props.book.title}
               </Link>
             </div>
             {sections.map(makeSectionDiv)}
             <div>
-              <span>Link:</span>
+              <span>Link: </span>
               <a
                 href={this.props.book.link}
                 target="_blank"
