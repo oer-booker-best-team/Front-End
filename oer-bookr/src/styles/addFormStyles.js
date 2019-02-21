@@ -17,7 +17,18 @@ export const AddForm = styled(Form)`
   button {
     width: 20%;
   }
+
   label {
     font-size: 18px;
+    @media (max-width: 900px) {
+      width: 28%;
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 800px) {
+    button {
+      width: 40%;
+    }
   }
 `

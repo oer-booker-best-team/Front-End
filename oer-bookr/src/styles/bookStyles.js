@@ -31,6 +31,7 @@ export const BookWrapper = styled.div`
   i {
     color: #730200;
     font-size: 18px;
+    margin-left: 10px;
   }
 
   @media (max-width: 1200px) {
@@ -44,6 +45,8 @@ export const BookWrapper = styled.div`
     flex-direction: row;
     img {
       margin: 0;
+      width: 35%;
+      height: 180px;
     }
   }
 `
@@ -109,6 +112,10 @@ export const DescriptionWrapper = styled.div`
   a {
     color: #730200;
   }
+
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
 `
 
 export const BookHeader = styled.div`
@@ -116,7 +123,11 @@ export const BookHeader = styled.div`
   justify-content: space-around;
   align-items: center;
   img {
-    width: 20%;
     height: 200px;
+  }
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    margin-bottom: 30px;
   }
 `

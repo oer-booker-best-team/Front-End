@@ -22,6 +22,10 @@ export const Form = styled.form`
     text-align: center;
     margin-bottom: 50px;
     padding: 10px;
+
+    @media (max-width: 900px) {
+      font-size: 25px;
+    }
   }
 `
 
@@ -138,6 +142,10 @@ export const Row = styled.div`
     i {
       color: white;
       margin-right: 5px;
+
+      @media (max-width: 900px) {
+        display: none;
+      }
     }
   }
 
@@ -157,6 +165,11 @@ export const Row = styled.div`
     transition: background-color 2s ease-out;
     :focus {
       background-color: #730200;
+    }
+
+    @media (max-width: 900px) {
+      width: 100%;
+      font-size: 14px;
     }
   }
 `
