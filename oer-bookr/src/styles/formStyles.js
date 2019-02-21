@@ -106,3 +106,58 @@ export const MessageLogin = styled(Message)`
     }
   }
 `
+
+export const Row = styled.div`
+  margin-bottom: 25px;
+  position: relative;
+  overflow: hidden;
+
+  input {
+    width: 100%;
+    height: 40px;
+    font-size: 25px;
+    padding: 10px;
+    padding-left: 30%;
+    box-sizing: border-box;
+    border: 1px solid #045d75;
+    border-bottom: 4px solid #045d75;
+    box-shadow: 5px 10px #888888;
+    background-color: transparent;
+    color: #333;
+    border-radius: 5px;
+    transition: all 0.3s cubic-bezier(1, 0.1, 0, 0.9);
+
+    :focus {
+      outline: none;
+    }
+    :focus + label {
+      transform: translateZ(0) translateX(-100%);
+    }
+  }
+
+  label {
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: bold;
+    width: 25%;
+    padding: 5px;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: white;
+    background: #045d75;
+    border-radius: 3px 0 0 3px;
+    transition: all 0.3s cubic-bezier(1, 0.1, 0, 0.9);
+    transform: translateZ(0) translateX(0);
+
+    i {
+      color: white;
+    }
+  }
+`

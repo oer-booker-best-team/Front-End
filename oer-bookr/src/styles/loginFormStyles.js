@@ -12,10 +12,6 @@ export const LoginForm = styled(Form)`
   top: 0;
   left: 0;
 
-  input {
-    color: #fff;
-    font-size: 25px;
-  }
   h1 {
     text-align: center;
     color: #045d75;
