@@ -1,12 +1,11 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import Zoom from "react-reveal/Zoom"
-import { Modal, ModalBody } from "reactstrap"
 import PropTypes from "prop-types"
 
 import { BookWrapper, BookInfo } from "../../styles/bookStyles"
 import { Icon, IconGroup } from "../../styles/basicStyles"
-import { Button, Form } from "../../styles/formStyles"
+import Warning from "../modals/Warning"
 
 class Book extends React.Component {
   state = {
@@ -71,32 +70,14 @@ class Book extends React.Component {
           ) : null}
         </BookWrapper>
 
-        <Modal
-          isOpen={this.state.modal}
+        <Warning
+          open={this.state.modal}
           toggle={this.toggleWarning}
-          centered
-          size="sm"
-        >
-          <ModalBody>
-            <Form
-              onSubmit={event => {
-                event.preventDefault()
-                this.props.deleteBook(this.props.book.id)
-              }}
-            >
-              <Button type="submit" color="danger">
-                Delete
-              </Button>
-              <Button
-                type="button"
-                color="secondary"
-                onClick={this.toggleWarning}
-              >
-                Cancel
-              </Button>
-            </Form>
-          </ModalBody>
-        </Modal>
+          action={event => {
+            event.preventDefault()
+            this.props.deleteBook(this.props.book.id)
+          }}
+        />
       </>
     )
   }
