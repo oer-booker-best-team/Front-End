@@ -22,7 +22,7 @@ const CategoryList = props => {
           <h1>OER Bookr </h1>
           <h2>Open Educational Resources (OER)</h2>
           <p>
-            Digitised materials offered freely and openly for educators,
+            Digitized materials offered freely and openly for educators,
             students, and self-learners to use and reuse for teaching, learning,
             and research.
           </p>
