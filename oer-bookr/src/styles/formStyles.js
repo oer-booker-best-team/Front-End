@@ -115,6 +115,9 @@ export const Row = styled.div`
     :focus + label {
       background-color: #730200;
     }
+    @media (max-width: 600px) {
+      padding-left: 45%;
+    }
   }
 
   input + label {
