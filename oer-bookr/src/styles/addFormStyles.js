@@ -20,8 +20,8 @@ export const AddForm = styled(Form)`
 
   label {
     font-size: 18px;
-    @media (max-width: 900px) {
-      width: 28%;
+    @media (max-width: 600px) {
+      width: 40%;
       font-size: 14px;
     }
   }

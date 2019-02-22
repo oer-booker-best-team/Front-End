@@ -139,6 +139,14 @@ export const Row = styled.div`
     border-radius: 3px 0 0 3px;
     transition: background-color 2s ease-out;
 
+    @media (max-width: 900px) {
+      width: 28%;
+      font-size: 14px;
+    }
+    @media (max-width: 600px) {
+      width: 40%;
+    }
+
     i {
       color: white;
       margin-right: 5px;
