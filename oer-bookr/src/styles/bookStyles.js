@@ -49,6 +49,12 @@ export const BookWrapper = styled.div`
       height: 180px;
     }
   }
+  @media (max-width: 700px) {
+    flex-direction: column;
+    img {
+      margin: 20px auto;
+    }
+  }
 `
 
 export const BookInfo = styled.div`
