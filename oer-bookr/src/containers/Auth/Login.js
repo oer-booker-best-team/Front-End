@@ -98,7 +98,7 @@ class SignIn extends React.Component {
               Login
             </Button>
             <MessageLogin>
-              If not registered, please <Link to="/signIn">Sign In</Link>
+              If not registered, please <Link to="/signIn">Sign Up</Link>
             </MessageLogin>
           </LoginForm>
         </Zoom>

@@ -77,7 +77,7 @@ class SignIn extends React.Component {
         <BackgroundImage />
         <Zoom>
           <LoginForm onSubmit={this.SignInUser}>
-            <h1>Sign In</h1>
+            <h1>Sign Up</h1>
             <Row>
               <input
                 name="username"
@@ -105,7 +105,7 @@ class SignIn extends React.Component {
               </label>
             </Row>
             <Button type="submit" color="primary">
-              Sign In
+              Sign Up
             </Button>
           </LoginForm>
         </Zoom>
